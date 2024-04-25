@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "AffectationProd";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Agent", FormMethod.Post @*, new { enctype = "multipart/form-data" })*@))
+{
+    @section featured {
+    
+        <section>
+            <div>
+                <head>
+                    <style>
+
+                        thead th {
+                          font-size: 13px;
+                          padding: 15px !important;
+                          text-align: center;
+                          background-color: #D14C4C;
+                          color:white;
+                        }
+
+                        tr {
+                          font-size: 12px;
+                          padding: 15px !important;
+                          background-color: #242426;
+                          color:white;
+                        }
+
+                        .buttonDetails {
+                          background-color: #4CAF50;
+                          border: none;
+                          color: white;
+                          padding: 5px 15px;
+                          text-align: center;
+                          font-size: 12px;
+                          margin: 4px 2px;
+                          opacity: 0.8;
+                          transition: 0.3s;
+                          display: inline-block;
+                          text-decoration: none;
+                          cursor: pointer;
+                        }
+                        .buttonDetails:hover {opacity: 1}
+
+                        td {
+                            font-size: 12px;
+                            padding: 15px !important;
+                            background-color: #242426;
+                            color:white;
+                        }
+
+                    </style>
+                </head>
+                <h3>Affectation des agents</h3>
+            
+                <div class="col-sm-3 form-group">
+                    @*<input type="submit" value="Nouvelle affectation" class="form-unique"/>*@
+                    @Html.ActionLink("Nouvelle affectation", "Create", "Agent", new { @Class = "buttonDetails"})
+                </div>
+                
+                <div class="col-sm-12">
+		            <table id="clients">
+				        <thead>
+					        <tr>
+						        <th width=40%>Produit</th>
+						        <th width=40%>Agents affecté</th>
+                                <th width=20%>Affectation agent</th>
+					        </tr>
+				        </thead>
+				        <tbody>
+                            @if (ViewBag.ldv != null)
+		                        {
+		                            foreach (var lst in ViewBag.ldv)
+		                            {
+                                        int idT = int.Parse(lst[0]);
+                                        <tr>
+                                            <td>@lst[2]</td>
+                                            <td>@lst[1]</td>
+                                            <td>
+                                                @Html.ActionLink("Affecter", "Edit", new { id=idT }, new { @class ="buttonDetails"})
+                                            </td>
+                                        </tr>
+		                            }
+		                        }
+				        </tbody>
+			        </table>
+        	    </div>
+                <div class="col-lg-12">
+                    &nbsp
+                </div>     
+            </div>
+        </section>
+    }
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#clients").DataTable()
+        })
+    </script>
+}

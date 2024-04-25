@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "SignatSoc";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+@using (Html.BeginForm("CreateSIGN", "Agent", FormMethod.Post @*, new { enctype = "multipart/form-data" })*@))
+{
+    @section featured {
+    
+        <section>
+            <div>
+                <head>
+                    <style>
+
+                        thead th {
+                          font-size: 13px;
+                          padding: 15px !important;
+                          text-align: center;
+                          background-color: #D14C4C;
+                          color:white;
+                        }
+
+                        tr {
+                          font-size: 12px;
+                          padding: 15px !important;
+                          background-color: #242426;
+                          color:white;
+                        }
+
+                        .buttonDetails {
+                          background-color: #4CAF50;
+                          border: none;
+                          color: white;
+                          padding: 5px 15px;
+                          text-align: center;
+                          font-size: 12px;
+                          margin: 4px 2px;
+                          opacity: 0.8;
+                          transition: 0.3s;
+                          display: inline-block;
+                          text-decoration: none;
+                          cursor: pointer;
+                        }
+                        .buttonDetails:hover {opacity: 1}
+
+                        td {
+                            font-size: 12px;
+                            padding: 15px !important;
+                            background-color: #242426;
+                            color:white;
+                        }
+
+                        .buttonAnnuler {
+                          background-color: #ff0000;
+                          border: none;
+                          color: white;
+                          padding: 5px 15px;
+                          text-align: center;
+                          font-size: 12px;
+                          margin: 4px 2px;
+                          opacity: 0.8;
+                          transition: 0.3s;
+                          display: inline-block;
+                          text-decoration: none;
+                          cursor: pointer;
+                        }
+                        .buttonAnnuler:hover {opacity: 1}
+
+                    </style>
+                </head>
+                <h3>Les signataires des sociétés</h3>
+            
+                @*<div class="col-sm-3 form-group">
+                    @Html.ActionLink("Nouveau signataire", "CreateSIGN", "Agent", new { @Class = "buttonDetails"})
+                </div>*@
+                
+                <div class="col-sm-12">
+		            <table id="clients">
+				        <thead>
+					        <tr>
+						        <th width=25%>Société</th>
+						        <th width=60%>Signataire</th>
+                                <th width=15%>Action</th>
+					        </tr>
+				        </thead>
+				        <tbody>
+                            @if (ViewBag.ldv != null)
+		                        {
+		                            foreach (var lst in ViewBag.ldv)
+		                            {
+                                        int idT = int.Parse(lst[0]);
+                                        <tr>
+                                            <td>@lst[1]</td>
+                                            <td>@lst[2]</td>
+                                            <td>
+                                                @Html.ActionLink("Détails", "DetailsSIGN", new { id=idT }, new { @class ="buttonDetails"}) <br />
+                                            </td>
+                                        </tr>
+		                            }
+		                        }
+				        </tbody>
+			        </table>
+        	    </div>
+                <div class="col-lg-12">
+                    &nbsp
+                </div>     
+            </div>
+        </section>
+    }
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#clients").DataTable()
+        })
+    </script>
+}

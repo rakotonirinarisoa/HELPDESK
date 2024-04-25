@@ -1,0 +1,279 @@
+﻿@model Helpdesk.Crmcom_CommercialeProsp
+
+@{
+    ViewBag.Title = "Dupli";
+    Layout = "~/Views/Shared/_LayoutPageMasterComm.cshtml";
+}
+
+<header>
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+</header>
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+
+
+        #Options thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #0fa344;
+            color:white;
+        }
+
+        #Options tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #Options td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #EC7325;
+            color:white;
+        }
+
+        tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+            white-space:pre-wrap; 
+            Word-wrap:break-Word;
+        }
+
+        #dbpa thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #0A93AC;
+            color:white;
+        }
+		
+        #dbpa tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #dbpa td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #dbpar thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #0A93AC;
+            color:white;
+        }
+
+        #dbpar tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #dbpar td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #rfa thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #0A93AC;
+            color:white;
+        }
+
+        #rfa tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #rfa td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        .buttonAnnuler {
+            background-color: #f00;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 12px;
+            margin: 4px 2px;
+            opacity: 0.8;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .buttonAnnuler:hover {opacity: 1}
+
+    </style>
+</head>
+
+@using (Html.BeginForm("DupliD", "Commeral", FormMethod.Post))
+{
+    
+    @Html.ValidationSummary(true)
+
+    if (ViewBag.listCommPros != null)
+    {
+        foreach (var lst in ViewBag.listCommPros)
+        {
+            <h4 style="text-align: center">Duplication de l'opportunité : @lst[1]</h4>
+            <div class="col-lg-12">
+                &nbsp
+            </div>
+            <div>
+                @{var idIs = int.Parse(@lst[0]);}
+                @Html.TextBoxFor(model => model.ID, new { @type = "hidden", @class = "form-unique", @Value = @idIs, @id = "idIs" })
+                @Html.ValidationMessageFor(model => model.ID)
+            </div>
+            <div>
+                @{var IDAGETNS = int.Parse(Session["UserId"].ToString());}
+                @Html.TextBoxFor(model => model.IDAGETNS, new { @type = "hidden", @class = "form-unique", @Value = @IDAGETNS, @id = "IDAGETNS" })
+                @Html.ValidationMessageFor(model => model.IDAGETNS)
+            </div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <div>
+                        @Html.Label("", "Affecté à")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.User_Name, new { @readonly = "readonly", @class = "form-unique", @style = "border: ridge #DC1744", @id = "User_Name", @Value = @Session["NameSess"].ToString() })
+                        @Html.ValidationMessageFor(model => model.User_Name)
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Client")
+                    </div>
+                    <div>
+                        @{string valClt = @lst[2].ToString();}
+                        @Html.TextBoxFor(model => model.Comp_CompanyId, new { @readonly = "readonly", @class = "form-unique", @style = "border: ridge #DC1744", @id = "Clt", @Value = @valClt })
+                        @Html.ValidationMessageFor(model => model.Comp_CompanyId)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <div>
+                        @Html.Label("", "Référence")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.ReferenceOppo, new { @class = "form-unique", @style = "border: ridge #0fa344", @id = "Refe" })
+                        @Html.ValidationMessageFor(model => model.ReferenceOppo)
+                    </div>
+                </div>
+                    <div class="col-sm-6 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Produit")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.ProduitsCollection, new SelectList(Model.ProduitsCollection), "", new { @class = "form-unique", @style = "border: ridge #0fa344", @id = "Prod" })
+                        @Html.ValidationMessageFor(model => model.Produit)
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-lg-12">
+                &nbsp
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <input type="button" name="ValidationDem" value="Enregistrer" class="form-unique", style="background-color: #BD0F0F; border: 1px solid #BD0F0F;" onclick="validation()"/>
+                </div>
+            </div>
+        }
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function redirect() {
+            var IDAGETNS = $("#IDAGETNS").val();
+            var link = '@Url.Action("Index", "Commeral", new { id = "-1" })';
+            link = link.replace("-1", IDAGETNS);
+            window.location.href = link;
+        }
+
+        function validation() {
+            var IDAGETNS = $("#IDAGETNS").val();
+            var collection =
+            {
+                ID: $("#idIs").val(),
+                ReferenceOppo: $("#Refe").val(),
+                Comp_CompanyId: $("#Clt").val(),
+                Produit: $("#Prod").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DupliD", "Commeral")',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data:
+                    JSON.stringify({
+                        collection: collection
+                    }),
+                //data: JSON.stringify({collection: formData}),
+                cache: false,
+                //contentType: false,
+                processData: false,
+
+                success: function (result) {
+                    alert(result);
+                    redirect();
+                    //window.location.href = "@Url.Action("Index", "Commeral")";
+                },
+                error: function (args) {
+                    /*console.log(args.responseText);
+                    console.error(args.responseText);*/
+                    alert(args.responseText);
+                    redirect();
+                }
+            });
+        }
+
+    </script>
+}

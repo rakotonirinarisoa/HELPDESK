@@ -1,0 +1,123 @@
+﻿@model Helpdesk.Crmcli_HistoIntervs
+
+@{
+    ViewBag.Title = "ModifInterv";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+<header>
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+</header>
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+    </style>
+</head>
+
+@using (Html.BeginForm("ModifInterv", "Demande", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        @*@Html.HiddenFor(model => model.ID_Demandes)*@
+        <legend>Détails de l'intervention</legend>
+
+        <div>
+            @Html.TextBoxFor(model => model.ID, new { @type = "hidden", @class = "form-unique", @Value = int.Parse(ViewBag.ID.ToString()) })
+            @Html.ValidationMessageFor(model => model.ID)
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Date de l'intervention")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Date_Comm, new { type = "date", @class = "form-unique", @Value = ViewBag.Date.ToString() })
+                    @Html.ValidationMessageFor(model => model.Date_Comm)
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Etat de l'intervention")
+                </div>
+                <div>
+                    @{string etat = ViewBag.Etat.ToString();}
+                    @Html.DropDownListFor(model => model.EtatsCollection, new SelectList(Model.EtatsCollection),@etat, new { @class = "form-unique" })
+                    @Html.ValidationMessageFor(model => model.EtatH)
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Le(s) intervenant(e)(s)")
+                </div>
+                <div>
+                    @Html.ListBoxFor(m => m.AgIds, Model.Ag, new { @class = "listbox" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Sujets, "Sujet")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Sujets, new { @class="form-unique", @Value = ViewBag.Sujet.ToString() })
+                    @Html.ValidationMessageFor(model => model.Sujets)
+                </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Descriptions, "Description")
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.Descriptions, new { @class = "form-unique", @Value = ViewBag.Desc.ToString() })
+                    @Html.ValidationMessageFor(model => model.Descriptions)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 form-group">
+                <input type="button" name="valiDA" value="Enregistrer les modification" class="form-unique" onclick="ModifInterv()"/>
+            </div>
+        </div>
+    </fieldset>
+    
+    <hr size=20 width=100% align=center >
+    
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function ModifInterv() {
+            var collection = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ModifInterv", "Demande")',
+                datatype: "json",
+                data: collection,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    alert(result);
+                    //window.location.href = result;
+                    window.location.href = "@Url.Action("Index", "Demande")";
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+
+        $(function () {
+            $('.listbox').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+    </script>
+}

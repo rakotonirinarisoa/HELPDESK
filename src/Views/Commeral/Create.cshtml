@@ -1,0 +1,2955 @@
+﻿@model Helpdesk.Crmcom_CommercialeProsp
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPageMasterComm.cshtml";
+}
+
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+
+        thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #EC7325;
+            color:white;
+        }
+
+        tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #dbpa thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #0A93AC;
+            color:white;
+        }
+		
+        #dbpa tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #dbpa td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #dbpar thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #0A93AC;
+            color:white;
+        }
+
+        #dbpar tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #dbpar td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #rfa thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #0A93AC;
+            color:white;
+        }
+
+        #rfa tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #rfa td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #Options thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #0fa344;
+            color:white;
+        }
+
+        #Options tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        #Options td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        .buttonAnnuler {
+            background-color: #f00;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 12px;
+            margin: 4px 2px;
+            opacity: 0.8;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .buttonAnnuler:hover {opacity: 1}
+
+        /*#region name */
+
+        .select2-container--material {
+            width: 100% !important;
+            border: 3px solid #0fa344;
+            height: 50px;
+        }
+
+            .select2-container--material .select2-selection--single {
+                background-color: #fff;
+                border-radius: 0;
+                box-shadow: none;
+                box-sizing: content-box;
+                min-height: 10px;
+                margin: 0;
+                outline: none;
+                padding: 8px;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+
+                .select2-container--material .select2-selection--single .select2-selection__rendered {
+                    color: rgba(0, 0, 0, 0.6);
+                    line-height: 28px;
+                    padding-left: 0;
+                }
+
+                .select2-container--material .select2-selection--single .select2-selection__clear {
+                    cursor: pointer;
+                    float: right;
+                    font-weight: bold;
+                }
+
+                .select2-container--material .select2-selection--single .select2-selection__placeholder {
+                    color: #999;
+                }
+
+                .select2-container--material .select2-selection--single .select2-selection__arrow {
+                    height: 26px;
+                    margin: 0.6rem 0 0.4rem 0;
+                    position: absolute;
+                    top: 1px;
+                    right: 1px;
+                    width: 20px;
+                }
+
+                    .select2-container--material .select2-selection--single .select2-selection__arrow b {
+                        border-color: #888 transparent transparent transparent;
+                        border-style: solid;
+                        border-width: 5px 4px 0 4px;
+                        height: 0;
+                        left: 50%;
+                        margin-left: -4px;
+                        margin-top: -2px;
+                        position: absolute;
+                        top: 50%;
+                        width: 0;
+                    }
+
+            .select2-container--material[dir="rtl"] .select2-selection--single .select2-selection__clear {
+                float: left;
+            }
+
+            .select2-container--material[dir="rtl"] .select2-selection--single .select2-selection__arrow {
+                left: 1px;
+                right: auto;
+            }
+
+            .select2-container--material.select2-container--disabled .select2-selection--single {
+                background-color: #eee;
+                cursor: default;
+            }
+
+                .select2-container--material.select2-container--disabled .select2-selection--single .select2-selection__clear {
+                    display: none;
+                }
+
+            .select2-container--material.select2-container--open .select2-selection--single .select2-selection__arrow b {
+                border-color: transparent transparent #888 transparent;
+                border-width: 0 4px 5px 4px;
+            }
+
+            .select2-container--material .select2-selection--multiple {
+                background-color: transparent;
+                border: none;
+                border-bottom: 1px solid #ced4da;
+                border-radius: 0;
+                box-shadow: none;
+                box-sizing: content-box;
+                cursor: text;
+                height: auto;
+                margin: 0;
+                outline: none;
+                padding: 5px 0 0 0;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+
+                .select2-container--material .select2-selection--multiple .select2-selection__rendered {
+                    box-sizing: border-box;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0 5px;
+                    width: 100%;
+                }
+
+                    .select2-container--material .select2-selection--multiple .select2-selection__rendered li {
+                        list-style: none;
+                    }
+
+                .select2-container--material .select2-selection--multiple .select2-selection__placeholder {
+                    color: #999;
+                    margin-top: 5px;
+                    float: left;
+                }
+
+                .select2-container--material .select2-selection--multiple .select2-selection__clear {
+                    cursor: pointer;
+                    float: right;
+                    font-weight: bold;
+                    margin-top: 5px;
+                    margin-right: 10px;
+                }
+
+                .select2-container--material .select2-selection--multiple .select2-selection__choice {
+                    background-color: #ffca28;
+                    border-radius: 16px;
+                    color: rgba(0, 0, 0, 0.6);
+                    cursor: default;
+                    float: left;
+                    margin-right: 5px;
+                    margin-top: 6px;
+                    padding: 0 12px;
+                }
+
+                .select2-container--material .select2-selection--multiple .select2-selection__choice__remove {
+                    cursor: pointer;
+                    display: inline-block;
+                    font-weight: bold;
+                    float: right;
+                    margin-left: 5px;
+                }
+
+                    .select2-container--material .select2-selection--multiple .select2-selection__choice__remove:hover {
+                        color: #333;
+                    }
+
+            .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__choice, .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder, .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-search--inline {
+                float: right;
+            }
+
+            .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__choice {
+                margin-left: 5px;
+                margin-right: auto;
+            }
+
+            .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__choice__remove {
+                margin-left: 2px;
+                margin-right: auto;
+            }
+
+            .select2-container--material.select2-container--disabled .select2-selection--multiple {
+                background-color: #eee;
+                cursor: default;
+            }
+
+            .select2-container--material.select2-container--disabled .select2-selection__choice__remove {
+                display: none;
+            }
+
+            .select2-container--material.select2-container--open.select2-container--above .select2-selection--single, .select2-container--material.select2-container--open.select2-container--above .select2-selection--multiple {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+            .select2-container--material.select2-container--open.select2-container--below .select2-selection--single, .select2-container--material.select2-container--open.select2-container--below .select2-selection--multiple {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            .select2-container--material.select2-container--focus .select2-selection--single {
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                outline: 0;
+            }
+
+            .select2-container--material.select2-container--focus .select2-selection--multiple {
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                outline: 0;
+            }
+
+            .select2-container--material .select2-search--dropdown .select2-search__field {
+                border: none;
+                border-bottom: 1px solid #ced4da;
+                border-radius: 0;
+                outline: none;
+            }
+
+                .select2-container--material .select2-search--dropdown .select2-search__field:focus:not([readonly]) {
+                    box-shadow: 0 1px 0 0 #ced4da;
+                    border-bottom: 1px solid #ced4da;
+                }
+
+            .select2-container--material .select2-search--inline .select2-search__field {
+                background: transparent;
+                border: none !important;
+                outline: 0;
+                box-shadow: none !important;
+                -webkit-appearance: textfield;
+            }
+
+            .select2-container--material .select2-results > .select2-results__options {
+                max-height: 200px;
+                overflow-y: auto;
+            }
+
+            .select2-container--material .select2-results__option[role=group] {
+                padding: 0;
+            }
+
+            .select2-container--material .select2-results__option[aria-disabled=true] {
+                color: #999;
+            }
+
+            .select2-container--material .select2-results__option[aria-selected=true] {
+                background-color: #ddd;
+            }
+
+            .select2-container--material .select2-results__option .select2-results__option {
+                padding-left: 1em;
+            }
+
+                .select2-container--material .select2-results__option .select2-results__option .select2-results__group {
+                    padding-left: 0;
+                }
+
+                .select2-container--material .select2-results__option .select2-results__option .select2-results__option {
+                    margin-left: -1em;
+                    padding-left: 2em;
+                }
+
+                    .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+                        margin-left: -2em;
+                        padding-left: 3em;
+                    }
+
+                        .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+                            margin-left: -3em;
+                            padding-left: 4em;
+                        }
+
+                            .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+                                margin-left: -4em;
+                                padding-left: 5em;
+                            }
+
+                                .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+                                    margin-left: -5em;
+                                    padding-left: 6em;
+                                }
+
+            .select2-container--material .select2-results__option--highlighted[aria-selected] {
+                background-color: #0A93AC;
+                color: white;
+            }
+
+            .select2-container--material .select2-results__group {
+                cursor: default;
+                display: block;
+                padding: 6px;
+            }
+
+        .select2-dropdown {
+            background-color: white;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+            display: block;
+            position: absolute;
+            left: -100000px;
+            width: 100%;
+            z-index: 1051;
+            -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .select2-results {
+            display: block;
+        }
+
+        .select2-results__options {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .select2-results__option {
+            padding: 6px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+            .select2-results__option[aria-selected] {
+                cursor: pointer;
+            }
+
+        .select2-container--open .select2-dropdown {
+            left: 0;
+        }
+
+        .select2-container--open .select2-dropdown--above {
+            border-bottom: none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .select2-container--open .select2-dropdown--below {
+            border-top: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .select2-search--dropdown {
+            display: block;
+            padding: 4px;
+        }
+
+            .select2-search--dropdown .select2-search__field {
+                padding: 4px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+                .select2-search--dropdown .select2-search__field::-webkit-search-cancel-button {
+                    -webkit-appearance: none;
+                }
+
+            .select2-search--dropdown.select2-search--hide {
+                display: none;
+            }
+
+        /*#endregion */
+
+    </style>
+
+</head>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+@using (Html.BeginForm("CreateD","Commeral",FormMethod.Post)) {
+    
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <h4 style="text-align: center">Création nouvelle opportunité</h4>
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <div>
+                    @Html.Label("", "Affecté à")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.User_Name, new{ @readonly = "readonly", @class="form-unique", @style="border: ridge #DC1744", @id="User_Name", @Value=@Session["NameSess"].ToString()})
+                    @Html.ValidationMessageFor(model => model.User_Name)
+                </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Etape SOFTWELL")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.EtapSCollection, new SelectList(Model.EtapSCollection), "", new { @class = "form-unique", @style="border: ridge #DC1744", @id="EtapS"})
+                    @Html.ValidationMessageFor(model => model.EtapS)
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <fieldset style="border: 2px solid #0fa344; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">1ER CONTACT</legend>
+         <div class="row">
+            <div class="col-sm-4 form-group">
+                <div>
+                    @Html.Label("", "Référence (Cas client)")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.ReferenceOppo, new{ @class="form-unique", @style="border: ridge; background-color: white", @id="Refe"})
+                    @Html.ValidationMessageFor(model => model.ReferenceOppo)
+                </div>
+            </div>
+            <div class="col-sm-5 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Client")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.Comp_CompanyId, (SelectList)ViewBag.ClientsList, "", new { @class="form-unique", @style="border: ridge #0fa344", @id="Clt"})
+                    @Html.ValidationMessageFor(model => model.Comp_CompanyId)
+                </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "FMFP")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.FMFPCollection, new SelectList(Model.FMFPCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="FMFP"})
+                    @Html.ValidationMessageFor(model => model.FMFP)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Date début")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Date_Debut, new { type = "date", @class = "form-unique", @style="border: ridge #0fa344", @id="Dated"})
+                    @Html.ValidationMessageFor(model => model.Date_Debut)
+                </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Date fin")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Date_Fin, new { type = "date", @class = "form-unique", @style="border: ridge #0fa344", @id="Datef"})
+                    @Html.ValidationMessageFor(model => model.Date_Fin)
+                </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Produit")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.ProduitsCollection, new SelectList(Model.ProduitsCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="Prod"})
+                    @Html.ValidationMessageFor(model => model.Produit)
+                </div>
+            </div>
+        </div>
+        <fieldset style="border: 2px solid #0fa344; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">Options</legend>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <table id="Options">
+				        <thead>
+					    <tr>
+                            <th>Options</th>
+                            <th></th>
+					    </tr>
+				        </thead>
+				        <tbody>
+		                    <tr class="row100">
+		                    </tr>
+				        </tbody>
+			        </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Options")
+                    </div>
+                    <div>
+                        @Html.ListBoxFor(m => m.OpIds, Model.Op, new { @class = "boxOPTIONS form-unique", @style="border: ridge #0fa344", @id="AgentOptions"})
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <input type="button" value="Ajouter" id="btnOptions", style="background-color: #0fa344; border: 1px solid #0fa344;" />
+                </div>
+            </div>
+        </fieldset>
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <div class="row">
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Type client")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.TypesCollection, new SelectList(Model.TypesCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="Tclt"})
+                    @Html.ValidationMessageFor(model => model.ID_TypeClient)
+                </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Etat")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.EtatsCollection, new SelectList(Model.EtatsCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="Etat"})
+                    @Html.ValidationMessageFor(model => model.ID_Etat)
+                </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Classification")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.ClassificationsCollection, new SelectList(Model.ClassificationsCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="Clas"})
+                    @Html.ValidationMessageFor(model => model.ID_Classification)
+                </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Source")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.SourcesCollection, new SelectList(Model.SourcesCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="Sour"})
+                    @Html.ValidationMessageFor(model => model.ID_Source)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Campagne MKT")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.CampagneCollection, new SelectList(Model.CampagneCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="Camp"})
+                    @Html.ValidationMessageFor(model => model.CCAMP)
+                </div>
+            </div>
+            @*<div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Elément de la campagne MKT")
+                </div>
+                <div id ="divNato">
+                    <select name="Rubrique" class="form-unique" style ="border: ridge #0fa344">
+                        <option id="optNato">
+
+                        </option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.WaIt_WaveItemId)
+                </div>
+            </div>*@
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Bailleur de fond")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.BailleursCollection, new SelectList(Model.BailleursCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="Baf"})
+                    @Html.ValidationMessageFor(model => model.Bailleur_Fond)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Rebut")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.RebutsCollection, new SelectList(Model.RebutsCollection), "", new { @class = "form-unique", @style = "border: ridge #0fa344", @id = "Rebu" })
+                    @Html.ValidationMessageFor(model => model.ID_Rebut)
+                </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Raison des rebuts")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.RebutsRCollection, new SelectList(Model.RebutsRCollection), "", new { @class = "form-unique", @style = "border: ridge #0fa344", @id = "RebuR" })
+                    @Html.ValidationMessageFor(model => model.ID_Rebut_Reason)
+                </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Date rébut")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Date_REBUT, new { type = "date", @class = "form-unique", @style = "border: ridge #0fa344", @id = "DateREBUT" })
+                    @Html.ValidationMessageFor(model => model.Date_REBUT)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Nombre users")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Nombre_User, new{ @class="form-unique", @Value = "0", @style="border: ridge #0fa344", @id="Nbrus"})
+                    @Html.ValidationMessageFor(model => model.Nombre_User)
+                </div>
+            </div>
+            <div class="col-sm-2 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Nombre salariés")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Nombre_Salarie, new{ @class="form-unique", @Value = "0", @style="border: ridge #0fa344", @id="Nbrsa"})
+                    @Html.ValidationMessageFor(model => model.Nombre_Salarie)
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Mode de commercialisation")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.ModeCollection, new SelectList(Model.ModeCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="ModeComm"})
+                    @Html.ValidationMessageFor(model => model.ModeComm)
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Formation")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.FormationCollection, new SelectList(Model.FormationCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="Formation"})
+                    @Html.ValidationMessageFor(model => model.Formation)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Budget (Montant)")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Budget, new{ @class="form-unique", @style="border: ridge #0fa344", @id="Budg"})
+                    @Html.ValidationMessageFor(model => model.Budget)
+                </div>
+            </div>
+            <div class="col-sm-2 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Devise")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.BudgetMonCollection, new SelectList(Model.BudgetMonCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="BudgetDevise"})
+                    @Html.ValidationMessageFor(model => model.BudgetDevise)
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Deadline")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.DeadLine, new { type = "date", @class = "form-unique", @style="border: ridge #0fa344", @id="Deadl"})
+                    @Html.ValidationMessageFor(model => model.DeadLine)
+                </div>
+            </div>
+            <div class="col-sm-2 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "P/R")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.PDeadCollection, new SelectList(Model.PDeadCollection), "", new { @class = "form-unique", @style="border: ridge #0fa344", @id="PDead"})
+                    @Html.ValidationMessageFor(model => model.PDead)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Interlocuteur et contact")
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.Interlocuteur, new{ @class="form-unique", @style="border: ridge #0fa344", @id="Interlo"})
+                    @Html.ValidationMessageFor(model => model.Interlocuteur)
+                </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Décisionnaires")
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.Decisionnaire, new{ @class="form-unique", @style="border: ridge #0fa344", @id="Decis"})
+                    @Html.ValidationMessageFor(model => model.Decisionnaire)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Existants")
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.Existant, new{ @class="form-unique", @style="border: ridge #0fa344", @id="Exis"})
+                    @Html.ValidationMessageFor(model => model.Existant)
+                </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Analyse des besoins")
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.Analyse_Besoin, new{ @class="form-unique", @style="border: ridge #0fa344", @id="Anbes"})
+                    @Html.ValidationMessageFor(model => model.Analyse_Besoin)
+                </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "PA")
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.PA, new{ @class="form-unique", @style="border: ridge #0fa344", @id="Plana"})
+                    @Html.ValidationMessageFor(model => model.PA)
+                </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Apporteur d'affaire")
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.ApporteurAffaire, new{ @class="form-unique", @style="border: ridge #0fa344", @id="ApporteurAffaire"})
+                    @Html.ValidationMessageFor(model => model.ApporteurAffaire)
+                </div>
+            </div>
+        </div>
+        </fieldset>
+        
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+
+        <fieldset style="border: 2px solid #EC7325; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">AVANT VENTE</legend>
+            <fieldset style="border: 2px solid #EC7325; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">Analyse des besoins</legend>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <table id="anal">
+				    <thead>
+					    <tr>
+                            <th>Date</th>
+                            <th>P/R</th>
+						    <th>Remarques et/ou PA</th>
+                            <th>Date envoi CRR</th>
+                            <th>P/R</th>
+                            <th></th>
+					    </tr>
+				    </thead>
+				    <tbody>
+		                <tr class="row100">
+		                </tr>
+				    </tbody>
+			    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateA" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1A"})
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Remarques et/ou PA")
+                    </div>
+                    <div>
+                        <textarea id="txtrmqA" , class = "form-unique", style="border: ridge #EC7325"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date envoi CRR")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateCRRA" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P2A"})
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <input type="button" value="Ajouter" id="btnAddRowA", style="background-color: #EC7325; border: 1px solid #EC7325;"/>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <fieldset style="border: 2px solid #EC7325; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">Autre RDV</legend>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <table id="rdv">
+				    <thead>
+					    <tr>
+                            <th>Date</th>
+                            <th>P/R</th>
+						    <th>Remarques et/ou PA</th>
+                            <th>Date envoi CRR</th>
+                            <th>P/R</th>
+                            <th></th>
+					    </tr>
+				    </thead>
+				    <tbody>
+		                <tr class="row100">
+		                </tr>
+				    </tbody>
+			    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateArdv" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1Ardv"})
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Remarques et/ou PA")
+                    </div>
+                    <div>
+                        <textarea id="txtrmqArdv" , class = "form-unique", style="border: ridge #EC7325"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date envoi CRR")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateCRRArdv" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P2Ardv"})
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <input type="button" value="Ajouter" id="btnAddRowArdv", style="background-color: #EC7325; border: 1px solid #EC7325;" />
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <fieldset style="border: 2px solid #EC7325; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">Démos logiciel</legend>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <table id="demol">
+				        <thead>
+					    <tr>
+                            <th>Date</th>
+                            <th>P/R</th>
+                            <th>Acteurs</th>
+						    <th>Remarques et/ou PA</th>
+                            <th>Date envoi CRR</th>
+                            <th>P/R</th>
+                            <th></th>
+					    </tr>
+				        </thead>
+				        <tbody>
+		                    <tr class="row100">
+		                    </tr>
+				        </tbody>
+			        </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateDemoLo" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1DemoLo"})
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Acteurs")
+                    </div>
+                    <div>
+                        @Html.ListBoxFor(m => m.AgIds, Model.Ag, new { @class = "listbox form-unique", @style="border: ridge #EC7325", @id="AgentDemol"})
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Remarques et/ou PA")
+                    </div>
+                    <div>
+                        <textarea id="txtrmqDemoLo" , class = "form-unique", style="border: ridge #EC7325"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date envoi CRR")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateCRRDemoLo" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P2DemoLo"})
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <input type="button" value="Ajouter" id="btnAddRowDemoLo", style="background-color: #EC7325; border: 1px solid #EC7325;" />
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <fieldset style="border: 2px solid #EC7325; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">Date remise DEVIS EXCEL</legend>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <table id="dexcel">
+				        <thead>
+					    <tr>
+                            <th>Date</th>
+                            <th>P/R</th>
+                            <th></th>
+					    </tr>
+				        </thead>
+				        <tbody>
+		                    <tr class="row100">
+		                    </tr>
+				        </tbody>
+			        </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-11 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateDexcel" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1Dexcel"})
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <input type="button" value="Ajouter" id="btnAddRowDexcel", style="background-color: #EC7325; border: 1px solid #EC7325;" />
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Montant offre")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.MontantOffre, new{ @class="form-unique", @style="border: ridge #EC7325", @id="MOF"})
+                    @Html.ValidationMessageFor(model => model.MontantOffre)
+                </div>
+            </div>
+            <div class="col-sm-2 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Devise")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.MontantOffCollection, new SelectList(Model.MontantOffCollection), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="MOFD"})
+                    @Html.ValidationMessageFor(model => model.MontantOffreDevise)
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "MPF")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.MPF, new{ @class="form-unique", @style="border: ridge #EC7325", @id="MFP"})
+                    @Html.ValidationMessageFor(model => model.MPF)
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Date remise PROPOSITION CONTRAT")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Date_ProposContrat, new { type = "date", @class = "form-unique", @style="border: ridge #EC7325", @id="DateRemPC"})
+                    @Html.ValidationMessageFor(model => model.Date_ProposContrat)
+                </div>
+            </div>
+            <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1RemPC"})
+                    </div>
+                </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Date remise PROG FORM")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Date_ProForma, new { type = "date", @class = "form-unique", @style="border: ridge #EC7325", @id="DateRemProg"})
+                    @Html.ValidationMessageFor(model => model.Date_ProForma)
+                </div>
+            </div>
+            <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1RemProg"})
+                    </div>
+                </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Date remise PRECO TECH")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Date_PrecoTech, new { type = "date", @class = "form-unique", @style="border: ridge #EC7325", @id="DateRemPreco"})
+                    @Html.ValidationMessageFor(model => model.Date_PrecoTech)
+                </div>
+            </div>
+            <div class="col-sm-1 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "P/R")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1RemPreco"})
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <fieldset style="border: 2px solid #EC7325; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">Démos maquettées</legend>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <table id="demoQ">
+				        <thead>
+					    <tr>
+                            <th>Date</th>
+                            <th>P/R</th>
+                            <th>Acteurs</th>
+						    <th>Remarques et/ou PA</th>
+                            <th>Date envoi CRR</th>
+                            <th>P/R</th>
+                            <th></th>
+					    </tr>
+				        </thead>
+				        <tbody>
+		                    <tr class="row100">
+		                    </tr>
+				        </tbody>
+			        </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateDemoQ" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1DemoQ"})
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Acteurs")
+                    </div>
+                    <div>
+                        @Html.ListBoxFor(m => m.AgIds2, Model.Ag2, new { @class = "listbox form-unique", @style="border: ridge #EC7325", @id="AgentDemoQ" })
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Remarques et/ou PA")
+                    </div>
+                    <div>
+                        <textarea id="txtrmqDemoQ" , class = "form-unique", style="border: ridge #EC7325"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date envoi CRR")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateCRRDemoQ" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P2DemoQ"})
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <input type="button" value="Ajouter" id="btnAddRowDemoQ", style="background-color: #EC7325; border: 1px solid #EC7325;" />
+                </div>
+            </div>
+        </fieldset>
+
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <fieldset style="border: 2px solid #EC7325; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">Autre RDV</legend>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <table id="rdvv">
+				    <thead>
+					    <tr>
+                            <th>Date</th>
+                            <th>P/R</th>
+						    <th>Remarques et/ou PA</th>
+                            <th>Date envoi CRR</th>
+                            <th>P/R</th>
+                            <th></th>
+					    </tr>
+				    </thead>
+				    <tbody>
+		                <tr class="row100">
+		                </tr>
+				    </tbody>
+			    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateArdvv" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1Ardvv"})
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Remarques et/ou PA")
+                    </div>
+                    <div>
+                        <textarea id="txtrmqArdvv" , class = "form-unique", style="border: ridge #EC7325"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date envoi CRR")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateCRRArdvv" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P2Ardvv"})
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <input type="button" value="Ajouter" id="btnAddRowArdvv", style="background-color: #EC7325; border: 1px solid #EC7325;" />
+                </div>
+            </div>
+        </fieldset>
+
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <fieldset style="border: 2px solid #EC7325; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">NEGO</legend>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <table id="nego">
+				    <thead>
+					    <tr>
+                            <th>Date</th>
+                            <th>P/R</th>
+						    <th>Remarques et/ou PA</th>
+                            <th>Date envoi CRR</th>
+                            <th>P/R</th>
+                            <th></th>
+					    </tr>
+				    </thead>
+				    <tbody>
+		                <tr class="row100">
+		                </tr>
+				    </tbody>
+			    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdatenego" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1nego"})
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Remarques et/ou PA")
+                    </div>
+                    <div>
+                        <textarea id="txtrmqnego" , class = "form-unique", style="border: ridge #EC7325"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date envoi CRR")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdateCRRnego" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P2nego"})
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <input type="button" value="Ajouter" id="btnAddRownego", style="background-color: #EC7325; border: 1px solid #EC7325;" />
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <fieldset style="border: 2px solid #EC7325; margin-left:0%; padding: 2%";>
+            <legend style="text-align: center">Date envoi devis GESCOM</legend>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <table id="dgesc">
+				        <thead>
+					    <tr>
+                            <th>Date</th>
+                            <th>P/R</th>
+                            <th></th>
+					    </tr>
+				        </thead>
+				        <tbody>
+		                    <tr class="row100">
+		                    </tr>
+				        </tbody>
+			        </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-11 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date")
+                    </div>
+                    <div>
+                        <input type="date" id="txtdatedgesc" , class = "form-unique", style="border: ridge #EC7325" />
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style="border: ridge #EC7325", @id="P1dgesc"})
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <input type="button" value="Ajouter" id="btnAddRowdgesc", style="background-color: #EC7325; border: 1px solid #EC7325;" />
+                </div>
+            </div>
+        </fieldset>
+        </fieldset>
+        
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+
+        <fieldset style="border: 2px solid #0A93AC; margin-left:0%; padding: 2%" ;>
+            <legend style="text-align: center">VENTE DATE RECEPTION CLIENT</legend>
+
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date envoi PRO FORMA")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Date_ProForma, new { type = "date", @class = "form-unique", @style = "border: ridge #0A93AC", @id = "DateEnvProg" })
+                        @Html.ValidationMessageFor(model => model.Date_ProForma)
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "P1EnvProg" })
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Remise accordée")
+                    </div>
+                    <div>
+                        @Html.TextAreaFor(model => model.Remise, new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "DateRemise" })
+                        @Html.ValidationMessageFor(model => model.Remise)
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Modalité de paiement")
+                    </div>
+                    <div>
+                        @Html.TextAreaFor(model => model.Modalite_Paiement, new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "Modpa" })
+                        @Html.ValidationMessageFor(model => model.Modalite_Paiement)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date réception BC")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Date_ReceptionBC, new { type = "date", @class = "form-unique", @style = "border: ridge #0A93AC", @id = "DateBC" })
+                        @Html.ValidationMessageFor(model => model.Date_ReceptionBC)
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "P1BC" })
+                    </div>
+                </div>
+                <div class="col-sm-5 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date réception ACOMPTE")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Date_ReceptionAcompte, new { type = "date", @class = "form-unique", @style = "border: ridge #0A93AC", @id = "DateAc" })
+                        @Html.ValidationMessageFor(model => model.Date_ReceptionAcompte)
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "P1AC" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                &nbsp
+            </div>
+            <fieldset style="border: 2px solid #0A93AC; margin-left:0%; padding: 2%" ;>
+                <legend style="text-align: center">Date envoi BPA SAGE</legend>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <table id="dbpa">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>P/R</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="row100">
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-11 form-group">
+                        <div class="editor-label">
+                            @Html.Label("", "Date")
+                        </div>
+                        <div>
+                            <input type="date" id="txtdatedbpa" , class="form-unique" , style="border: ridge #0A93AC" />
+                        </div>
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <div class="editor-label">
+                            @Html.Label("", "P/R")
+                        </div>
+                        <div>
+                            @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "P1dbpa" })
+                        </div>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <input type="button" value="Ajouter" id="btnAddRowdbpa" , style="background-color: #0A93AC; border: 1px solid #0A93AC;" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="col-lg-12">
+                &nbsp
+            </div>
+            <fieldset style="border: 2px solid #0A93AC; margin-left:0%; padding: 2%" ;>
+                <legend style="text-align: center">Date relance BPA SAGE</legend>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <table id="dbpar">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>P/R</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="row100">
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-11 form-group">
+                        <div class="editor-label">
+                            @Html.Label("", "Date")
+                        </div>
+                        <div>
+                            <input type="date" id="txtdatedbpar" , class="form-unique" , style="border: ridge #0A93AC" />
+                        </div>
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <div class="editor-label">
+                            @Html.Label("", "P/R")
+                        </div>
+                        <div>
+                            @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "P1dbpar" })
+                        </div>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <input type="button" value="Ajouter" id="btnAddRowdbpar" , style="background-color: #0A93AC; border: 1px solid #0A93AC;" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="col-lg-11">
+                &nbsp
+            </div>
+            <div class="row">
+                <div class="col-sm-11 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date de rdv remise BL = LIVRAISON LOGICIEL")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Date_BL, new { type = "date", @class = "form-unique", @style = "border: ridge #0A93AC", @id = "DateBL" })
+                        @Html.ValidationMessageFor(model => model.Date_BL)
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "P1BL" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12">
+                &nbsp
+            </div>
+            <fieldset style="border: 2px solid #0A93AC; margin-left:0%; padding: 2%" ;>
+                <legend style="text-align: center">Date de remise FA</legend>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <table id="rfa">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>P/R</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="row100">
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-11 form-group">
+                        <div class="editor-label">
+                            @Html.Label("", "Date")
+                        </div>
+                        <div>
+                            <input type="date" id="txtdaterfa" , class="form-unique" , style="border: ridge #0A93AC" />
+                        </div>
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <div class="editor-label">
+                            @Html.Label("", "P/R")
+                        </div>
+                        <div>
+                            @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "P1rfa" })
+                        </div>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <input type="button" value="Ajouter" id="btnAddRowrfa" , style="background-color: #0A93AC; border: 1px solid #0A93AC;" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="col-lg-12">
+                &nbsp
+            </div>
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "CONTRAT")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Date_Contrat, new { type = "date", @class = "form-unique", @style = "border: ridge #0A93AC", @id = "DateContrat" })
+                        @Html.ValidationMessageFor(model => model.Date_Contrat)
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "P1Contrat" })
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date envoi CRL")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Date_CRL, new { type = "date", @class = "form-unique", @style = "border: ridge #0A93AC", @id = "DateCRL" })
+                        @Html.ValidationMessageFor(model => model.Date_CRL)
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "P1CRL" })
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "Date retour contrat")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Date_RetourContrat, new { type = "date", @class = "form-unique", @style = "border: ridge #0A93AC", @id = "DateReContr" })
+                        @Html.ValidationMessageFor(model => model.Date_RetourContrat)
+                    </div>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "P/R")
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(model => model.PrevisReel, new SelectList(Model.PrevisReel), "", new { @class = "form-unique", @style = "border: ridge #0A93AC", @id = "P1ReContr" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "DATE ENVOIE OFFRE")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Date_Contrat, new { type = "date", @class = "form-unique", @style = "border: ridge #0A93AC", @id = "DateEO" })
+                        @Html.ValidationMessageFor(model => model.Date_Contrat)
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.Label("", "MOIS PREVISIONNEL CA")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Date_CRL, new { type = "date", @class = "form-unique", @style = "border: ridge #0A93AC", @id = "DatePr" })
+                        @Html.ValidationMessageFor(model => model.Date_CRL)
+                    </div>
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <div >
+                        <div class="editor-label">
+                            @Html.Label("", "A/DEMARRAGE")
+                        </div>
+                        <div>
+                            <input type="text" value="" class="cldemarage" style="border: ridge #0A93AC" />
+                        </div>
+                    </div>
+                    <div >
+                        <div class="editor-label">
+                            @Html.Label("", "A/ANNUEL")
+                        </div>
+                        <div>
+                            <input type="text" value="" class="clannuel" style="border: ridge #0A93AC" />
+                        </div>
+                    </div>
+                    <div>
+                        <div class="editor-label">
+                            @Html.Label("", "FORMATION")
+                        </div>
+                        <div>
+                            <input type="text" value="" class="clformation" style="border: ridge #0A93AC;" />
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </fieldset>
+
+        
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 form-group">
+                <input type="button" name="ValidationDem" value="Enregistrer" class="form-unique", style="background-color: #BD0F0F; border: 1px solid #BD0F0F;" onclick="validation()"/>
+            </div>
+        </div>
+    </fieldset>
+}
+
+<script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+<script src="~/Content/Chosen/init.js"></script>
+
+@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#Clt').select2({ theme: "material" });
+
+        });
+        @*function validationDem() {
+            var collection = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CreateD", "Commeral")',
+                datatype: "json",
+                data: collection,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    alert(result);
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }*@
+
+        $(function () {
+            $(document).ready(function () {
+                $('.boxOPTIONS').removeAttr('multiple');
+            });
+        });
+        
+        $("#optionId").on("change", function () {
+            if ($("#optionId option:selected").index() == 3) {
+                $("#controlId1").show();
+            } else {
+                $("#controlId1").hide();
+            }
+        });
+
+        $("#optionId").on("change", function () {
+            if ($("#optionId option:selected").index() == 3) {
+                $("#controlId2").show();
+            } else {
+                $("#controlId2").hide();
+            }
+        });
+
+        $("#optionId").on("change", function () {
+            if ($("#optionId option:selected").index() == 3) {
+                $("#controlId3").show();
+            } else {
+                $("#controlId3").hide();
+            }
+        });
+
+        $("#optionId").on("change", function () {
+            if ($("#optionId option:selected").index() == 3) {
+                $("#controlId4").show();
+            } else {
+                $("#controlId4").hide();
+            }
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRowA").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdateA").val();
+
+                var rmq2 = [];
+                $.each($('#txtrmqA').val().split('\n'), function (i, line) {
+                    if (line) {
+                        rmq2.push(line);
+                    }
+                });
+
+                var rmq = "";
+                $.each(rmq2, function (i, line) {
+                    if (line) {
+                        rmq += line + "<br>";
+                    }
+                });
+
+                var dateCRR = $("#txtdateCRRA").val();
+
+                var P1 = $("#P1A").val();
+                var P2 = $("#P2A").val();
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append("<td>" + rmq + "</td>");
+                tr.append("<td>" + dateCRR + "</td>");
+                tr.append("<td>" + P2 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#anal').append(tr);
+
+            });
+
+            // Find and remove selected table rows
+            $("#btnDelRowA").click(function () {
+                $("#anal").find('input[txtdateA="record"]').each(function () {
+                    if ($(this).is(":checked")) {
+                        $(this).parents("tr").remove();
+                    }
+                });
+            });
+
+            $('#anal').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRowArdv").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdateArdv").val();
+
+                var rmq2 = [];
+                $.each($('#txtrmqArdv').val().split('\n'), function (i, line) {
+                    if (line) {
+                        rmq2.push(line);
+                    }
+                });
+
+                var rmq = "";
+                $.each(rmq2, function (i, line) {
+                    if (line) {
+                        rmq += line + "<br>";
+                    }
+                });
+
+                var dateCRR = $("#txtdateCRRArdv").val();
+
+                var P1 = $("#P1Ardv").val();
+                var P2 = $("#P2Ardv").val();
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append("<td>" + rmq + "</td>");
+                tr.append("<td>" + dateCRR + "</td>");
+                tr.append("<td>" + P2 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#rdv').append(tr);
+
+            });
+
+            $('#rdv').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnOptions").click(function () {
+                var acteur = $("#AgentOptions").val();
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                tr.append("<td>" + acteur + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#Options').append(tr);
+            });
+
+            $('#Options').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRowDemoLo").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdateDemoLo").val();
+                //var rmq = $("#txtrmqDemoLo").val();
+
+                var rmq2 = [];
+                $.each($('#txtrmqDemoLo').val().split('\n'), function (i, line) {
+                    if (line) {
+                        rmq2.push(line);
+                    }
+                });
+
+                var rmq = "";
+                $.each(rmq2, function (i, line) {
+                    if (line) {
+                        rmq += line + "<br>";
+                    }
+                });
+
+                var dateCRR = $("#txtdateCRRDemoLo").val();
+                var acteur = $("#AgentDemol").val();
+
+                var P1 = $("#P1DemoLo").val();
+                var P2 = $("#P2DemoLo").val();
+
+                //alert($("#txtrmqDemoLo").result());
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append("<td>" + acteur + "</td>");
+                tr.append("<td><p>" + rmq + "</p></td>");
+                tr.append("<td>" + dateCRR + "</td>");
+                tr.append("<td>" + P2 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#demol').append(tr);
+
+            });
+
+            $('#demol').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRowDexcel").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdateDexcel").val();
+                var P1 = $("#P1Dexcel").val();
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#dexcel').append(tr);
+
+            });
+
+            $('#dexcel').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRowDemoQ").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdateDemoQ").val();
+                //var rmq = $("#txtrmqDemoLo").val();
+
+                var rmq2 = [];
+                $.each($('#txtrmqDemoQ').val().split('\n'), function (i, line) {
+                    if (line) {
+                        rmq2.push(line);
+                    }
+                });
+
+                var rmq = "";
+                $.each(rmq2, function (i, line) {
+                    if (line) {
+                        rmq += line + "<br>";
+                    }
+                });
+
+                var dateCRR = $("#txtdateCRRDemoQ").val();
+                var acteur = $("#AgentDemoQ").val();
+
+                var P1 = $("#P1DemoQ").val();
+                var P2 = $("#P2DemoQ").val();
+
+                //alert($("#txtrmqDemoLo").result());
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append("<td>" + acteur + "</td>");
+                tr.append("<td><p>" + rmq + "</p></td>");
+                tr.append("<td>" + dateCRR + "</td>");
+                tr.append("<td>" + P2 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#demoQ').append(tr);
+
+            });
+
+            $('#demoQ').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRowArdvv").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdateArdvv").val();
+
+                var rmq2 = [];
+                $.each($('#txtrmqArdvv').val().split('\n'), function (i, line) {
+                    if (line) {
+                        rmq2.push(line);
+                    }
+                });
+
+                var rmq = "";
+                $.each(rmq2, function (i, line) {
+                    if (line) {
+                        rmq += line + "<br>";
+                    }
+                });
+
+                var dateCRR = $("#txtdateCRRArdvv").val();
+
+                var P1 = $("#P1Ardvv").val();
+                var P2 = $("#P2Ardvv").val();
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append("<td>" + rmq + "</td>");
+                tr.append("<td>" + dateCRR + "</td>");
+                tr.append("<td>" + P2 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#rdvv').append(tr);
+
+            });
+
+            $('#rdvv').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRownego").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdatenego").val();
+
+                var rmq2 = [];
+                $.each($('#txtrmqnego').val().split('\n'), function (i, line) {
+                    if (line) {
+                        rmq2.push(line);
+                    }
+                });
+
+                var rmq = "";
+                $.each(rmq2, function (i, line) {
+                    if (line) {
+                        rmq += line + "<br>";
+                    }
+                });
+
+                var dateCRR = $("#txtdateCRRnego").val();
+
+                var P1 = $("#P1nego").val();
+                var P2 = $("#P2nego").val();
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append("<td>" + rmq + "</td>");
+                tr.append("<td>" + dateCRR + "</td>");
+                tr.append("<td>" + P2 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#nego').append(tr);
+
+            });
+
+            $('#nego').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRowdgesc").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdatedgesc").val();
+
+                var P1 = $("#P1dgesc").val();
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#dgesc').append(tr);
+
+            });
+
+            $('#dgesc').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRowdbpa").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdatedbpa").val();
+
+                var P1 = $("#P1dbpa").val();
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#dbpa').append(tr);
+
+            });
+
+            $('#dbpa').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRowdbpar").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdatedbpar").val();
+
+                var P1 = $("#P1dbpar").val();
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#dbpar').append(tr);
+
+            });
+
+            $('#dbpar').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        $(document).ready(function () {
+            var rowIdx = 0;
+            $("#btnAddRowrfa").click(function () {
+
+                //Getting value from to populate
+                var date = $("#txtdaterfa").val();
+
+                var P1 = $("#P1rfa").val();
+
+                //Prepare TR to add in Table
+                var tr;
+                tr = $('<tr id="R${++rowIdx}">');
+                //tr.append("<td>" + ++rowIdx + "</td>");
+                tr.append("<td>" + date + "</td>");
+                tr.append("<td>" + P1 + "</td>");
+                tr.append('"<td><button class="remove buttonAnnuler" type="button">Supprimer</button></td></tr>"');
+                $('#rfa').append(tr);
+
+            });
+
+            $('#rfa').on('click', '.remove', function () {
+
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
+
+                // Iterating across all the rows 
+                // obtained to change the index
+                child.each(function () {
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
+                    // Modifying row index.
+                    idx.html('Row ${dig - 1}');
+                    // Modifying row id.
+                    $(this).attr('id', 'R${dig - 1}');
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+            });
+        });
+
+        function validation() {
+            var collection =
+            {
+                ReferenceOppo: $("#Refe").val(),
+                Comp_CompanyId: $("#Clt").val(),
+                Produit: $("#Prod").val(),
+                Date_Debut: $("#Dated").val(),
+                Date_Fin: $("#Datef").val(),
+                Bailleur_Fond: $("#Baf").val(),
+                Nombre_User: $("#Nbrus").val(),
+                Nombre_Salarie: $("#Nbrsa").val(),
+                Budget: $("#Budg").val(),
+                DeadLine: $("#Deadl").val(),
+                Interlocuteur: $("#Interlo").val(),
+                Decisionnaire: $("#Decis").val(),
+                Existant: $("#Exis").val(),
+                Analyse_Besoin: $("#Anbes").val(),
+                PA: $("#Plana").val(),
+                Date_ProposContrat: $("#DateRemPC").val(),
+                P1ProposContrat: $("#P1RemPC").val(),
+                Date_ProgForm: $("#DateRemProg").val(),
+                P1ProgForm: $("#P1RemProg").val(),
+                Date_PrecoTech: $("#DateRemPreco").val(),
+                P1PrecoTech: $("#P1RemPreco").val(),
+                Date_ProForma: $("#DateEnvProg").val(),
+                P1ProForma: $("#P1EnvProg").val(),
+                Remise: $("#DateRemise").val(),
+                Modalite_Paiement: $("#Modpa").val(),
+                Date_ReceptionBC: $("#DateBC").val(),
+                P1ReceptionBC: $("#P1BC").val(),
+                //Duree_Traitement: $("#DurT").val(),
+                Date_ReceptionAcompte: $("#DateAc").val(),
+                P1ReceptionAcompte: $("#P1Ac").val(),
+                Date_BL: $("#DateBL").val(),
+                P1BL: $("#P1BL").val(),
+                Date_Contrat: $("#DateContrat").val(),
+                P1Contrat: $("#P1Contrat").val(),
+                Date_CRL: $("#DateCRL").val(),
+                P1CRL: $("#P1CRL").val(),
+                Date_RetourContrat: $("#DateReContr").val(),
+                P1RetourContrat: $("#P1ReContr").val(),
+
+                EtapS: $("#EtapS").val(),
+                ModeComm: $("#ModeComm").val(),
+                Formation: $("#Formation").val(),
+                BudgetDevise: $("#BudgetDevise").val(),
+                ApporteurAffaire: $("#ApporteurAffaire").val(),
+                CCAMP: $("#Camp").val(),
+                FMFP: $("#FMFP").val(),
+                PDead: $("#PDead").val(),
+                MontantOffre: $("#MOF").val(),
+                MontantOffreDevise: $("#MOFD").val(),
+                MPF: $("#MPF").val(),
+
+                assDemarage: $(".cldemarage").val(),
+                assAnnuel: $(".clannuel").val(),
+                assFormation: $(".clformation").val(),
+                DateEnvoieOFF: $("#DateEO").val(),
+                MoisPrev: $("#DatePr").val(),
+            };/*$('form').serialize();*/
+
+            var idForeign =
+            {
+                TypeClient: $("#Tclt").val(),
+                Etat: $("#Etat").val(),
+                Classification: $("#Clas").val(),
+                Source: $("#Sour").val(),
+                Rebut: $("#Rebu").val(),
+                Rebut_Reason: $("#RebuR").val()
+            };
+
+            //////////////////////////////////////////////////////////////////
+            var anal = new Array();
+            $("#anal TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+
+                ttab.P1 = row.find("TD").eq(1).html();
+
+                var txtR = row.find("TD").eq(2).html();
+                var repl = /<br>/gi;
+                if (txtR) {
+                    txtR = txtR.replace(repl, '\\n');
+                    txtR = jQuery('<p>' + txtR + '</p>').text();
+                }
+                ttab.Rmq = jQuery('<p>' + txtR + '</p>').text();
+
+                ttab.DateCRR = row.find("TD").eq(3).html();
+                ttab.P2 = row.find("TD").eq(4).html();
+                anal.push(ttab);
+            });
+            
+            anal.shift();
+            var analY = anal;
+
+            ///
+            var Options = new Array();
+            $("#Options TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Options = row.find("TD").eq(0).html();
+
+                Options.push(ttab);
+            });
+            Options.shift();
+            var OptionsY = Options;
+
+            ///
+            var rdv = new Array();
+            $("#rdv TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+                ttab.P1 = row.find("TD").eq(1).html();
+                
+                var txtR = row.find("TD").eq(2).html();
+                var repl = /<br>/gi;
+                if (txtR) {
+                    txtR = txtR.replace(repl, '\\n');
+                    txtR = jQuery('<p>' + txtR + '</p>').text();
+                }
+                ttab.Rmq = jQuery('<p>' + txtR + '</p>').text();
+
+                ttab.DateCRR = row.find("TD").eq(3).html();
+                ttab.P2 = row.find("TD").eq(4).html();
+                rdv.push(ttab);
+            });
+            rdv.shift();
+            var rdvY = rdv;
+            ///
+            var demol = new Array();
+            $("#demol TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+                ttab.P1 = row.find("TD").eq(1).html();
+                ttab.Acteur = row.find("TD").eq(2).html();
+                
+                var txtR = row.find("TD").eq(3).html();
+                var repl = /<br>/gi;
+                if (txtR) {
+                    txtR = txtR.replace(repl, '\\n');
+                    txtR = jQuery('<p>' + txtR + '</p>').text();
+                }
+                ttab.Rmq = jQuery('<p>' + txtR + '</p>').text();
+
+                ttab.DateCRR = row.find("TD").eq(4).html();
+                ttab.P1 = row.find("TD").eq(5).html();
+                demol.push(ttab);
+            });
+            demol.shift();
+            var demolY = demol;
+            ///
+            var dexcel = new Array();
+            $("#dexcel TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+                ttab.P1 = row.find("TD").eq(1).html();
+                dexcel.push(ttab);
+            });
+            dexcel.shift();
+            var dexcelY = dexcel;
+            ///
+            var demoQ = new Array();
+            $("#demoQ TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+                ttab.P1 = row.find("TD").eq(1).html();
+                ttab.Acteur = row.find("TD").eq(2).html();
+                
+                var txtR = row.find("TD").eq(3).html();
+                var repl = /<br>/gi;
+                if (txtR) {
+                    txtR = txtR.replace(repl, '\\n');
+                    txtR = jQuery('<p>' + txtR + '</p>').text();
+                }
+                ttab.Rmq = jQuery('<p>' + txtR + '</p>').text();
+
+                ttab.DateCRR = row.find("TD").eq(4).html();
+                ttab.P2 = row.find("TD").eq(5).html();
+                demoQ.push(ttab);
+            });
+            demoQ.shift();
+            var demoQY = demoQ;
+            ///
+            var rdvv = new Array();
+            $("#rdvv TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+                ttab.P1 = row.find("TD").eq(1).html();
+                
+                var txtR = row.find("TD").eq(2).html();
+                var repl = /<br>/gi;
+                if (txtR) {
+                    txtR = txtR.replace(repl, '\\n');
+                    txtR = jQuery('<p>' + txtR + '</p>').text();
+                }
+                ttab.Rmq = jQuery('<p>' + txtR + '</p>').text();
+
+                ttab.DateCRR = row.find("TD").eq(3).html();
+                ttab.P2 = row.find("TD").eq(4).html();
+                rdvv.push(ttab);
+            });
+            rdvv.shift();
+            var rdvvY = rdvv;
+            ///
+            var nego = new Array();
+            $("#nego TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+                ttab.P1 = row.find("TD").eq(1).html();
+                
+                var txtR = row.find("TD").eq(2).html();
+                var repl = /<br>/gi;
+                if (txtR) {
+                    txtR = txtR.replace(repl, '\\n');
+                    txtR = jQuery('<p>' + txtR + '</p>').text();
+                }
+                ttab.Rmq = jQuery('<p>' + txtR + '</p>').text();
+
+                ttab.DateCRR = row.find("TD").eq(3).html();
+                ttab.P2 = row.find("TD").eq(4).html();
+                nego.push(ttab);
+            });
+            nego.shift();
+            var negoY = nego;
+            ///
+            var dgesc = new Array();
+            $("#dgesc TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+                ttab.P1 = row.find("TD").eq(1).html();
+                dgesc.push(ttab);
+            });
+            dgesc.shift();
+            var dgescY = dgesc;
+            ///
+            var dbpa = new Array();
+            $("#dbpa TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+                ttab.P1 = row.find("TD").eq(1).html();
+                dbpa.push(ttab);
+            });
+            dbpa.shift();
+            var dbpaY = dbpa;
+            ///
+            var dbpar = new Array();
+            $("#dbpar TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+                ttab.P1 = row.find("TD").eq(1).html();
+                dbpar.push(ttab);
+            });
+            dbpar.shift();
+            var dbparY = dbpar;
+            ///
+            var rfa = new Array();
+            $("#rfa TBODY TR").each(function () {
+                var row = $(this);
+                var ttab = {};
+                ttab.Date = row.find("TD").eq(0).html();
+                ttab.P1 = row.find("TD").eq(1).html();
+                rfa.push(ttab);
+            });
+            rfa.shift();
+            var rfaY = rfa;
+
+            ///PRODUITS///
+            //var proddd = $("#Prod").val();
+
+            //////////////////////////////////////////////////////////////////
+            
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CreateD", "Commeral")',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data:
+                    JSON.stringify({
+                        collection: collection,
+                        idForeign: idForeign,
+                        //ProduiTs: proddd,
+                        analY: analY,//3
+                        rdvY: rdvY,//3
+                        demolY: demolY,//4
+                        dexcelY: dexcelY,//1
+                        demoQY: demoQY,//4
+                        rdvvY: rdvvY,//3
+                        negoY: negoY,//3
+                        dgescY: dgescY,//1
+                        dbpaY: dbpaY,//1
+                        dbparY: dbparY,//1
+                        rfaY: rfaY,//1
+                        OptionsY: OptionsY
+                    }),
+                //data: JSON.stringify({collection: formData}),
+                cache: false,
+                processData: false,
+
+                success: function (result) {
+                    alert(result);
+                    window.location.href = "@Url.Action("Index", "Commeral")";
+                },
+                error: function (args) {
+                    /*console.log(args.responseText);
+                    console.error(args.responseText);*/
+                    alert(args.responseText);
+                }
+            });
+        }
+
+        @*function CampU() {
+            var prod = $("#Camp").val();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetRub", "Commeral")',
+                datatype: "json",
+                data: { prod: prod },
+                success: function (result) {
+                    var txt = '<div><select name="Rubrique" class="form-unique" style ="border: ridge #0fa344">';
+                    var a = JSON.parse(result)
+
+                    $.each(a, function (k, v) {
+                        txt += '<option id="optNato" value="' + v.Value + '">' + v.Text + '</option>';
+                    })
+
+                    txt += '</select>'
+
+                    document.getElementById("divNato").innerHTML = txt;
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }*@
+
+    </script>
+}

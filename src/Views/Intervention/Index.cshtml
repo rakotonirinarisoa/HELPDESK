@@ -1,0 +1,192 @@
+﻿@model IEnumerable<Helpdesk.Crmcli_Taches>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+@section featured {
+
+    <section>
+        <div>
+            <head>
+                <style>
+                    .vertical-menu {
+                        width: 200px;
+                        font-size: 11px;
+                        cursor: pointer;
+                    }
+
+                        .vertical-menu a {
+                            background-color: #242426;
+                            color: white;
+                            display: block;
+                            padding: 31px;
+                            text-decoration: none;
+                        }
+
+                            .vertical-menu a:hover {
+                                background-color: #D14C4C;
+                            }
+
+                            .vertical-menu a.active {
+                                background-color: #D14C4C;
+                                color: white;
+                            }
+
+                    thead th {
+                        font-size: 13px;
+                        padding: 15px !important;
+                        text-align: center;
+                        background-color: #D14C4C;
+                        color: white;
+                    }
+
+                    tr {
+                        font-size: 12px;
+                        padding: 15px !important;
+                        background-color: #242426;
+                        color: white;
+                    }
+
+                    td {
+                        font-size: 12px;
+                        padding: 15px !important;
+                        background-color: #242426;
+                        color: white;
+                    }
+
+                    .buttonDetails {
+                        background-color: #4CAF50;
+                        border: none;
+                        color: white;
+                        padding: 5px 15px;
+                        text-align: center;
+                        font-size: 12px;
+                        margin: 4px 2px;
+                        opacity: 0.8;
+                        transition: 0.3s;
+                        display: inline-block;
+                        text-decoration: none;
+                        cursor: pointer;
+                    }
+
+                        .buttonDetails:hover {
+                            opacity: 1
+                        }
+                </style>
+            </head>
+            @*<div id="idtoaster"></div>*@
+            
+            
+            <fieldset>
+                <h3>Mes interventions</h3>
+                <div class="col-sm-12">
+
+                    <table id="clients" style="overflow:auto">
+                        <thead>
+                            <tr>
+                                <th width=5%>Date ticket</th>
+                                <th width=5%>Référence ticket</th>
+                                <th width=8%>Client</th>
+                                <th width=5%>Type de prestation</th>
+                                <th width=12%>Sujet</th>
+                                <th width=10%>Description</th>
+
+                                <th width=5%>Statut</th>
+                                @*<th width=7%>Etapes</th>*@
+                                @*<th width=10%>Agent</th>*@
+
+                                <th width=50%>Tâche</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.ldv != null)
+                            {
+                                foreach (var lst in ViewBag.ldv)
+                                {
+                                    <tr>
+                                        <td>@lst[1]</td>
+                                        <td>@lst[2]</td>
+                                        <td>@lst[8]</td>
+                                        <td>@lst[9]</td>
+                                        <td>@lst[3]</td>
+                                        <td>@lst[4]</td>
+                                        <td>@lst[5]</td>
+                                        @*<td>@lst[6]</td>*@
+
+                                        <td>
+                                            <table id="clients">
+                                                <thead>
+                                                    <tr>
+                                                        <th width=10%>Date tâche</th>
+                                                        <th width=10%>Validation interne</th>
+                                                        <th width=10%>Envoi client</th>
+                                                        <th width=10%>Validation fiche</th>
+                                                        <th width=40%>Validateur</th>
+                                                        <th width=10%>Heure début</th>
+                                                        <th width=10%>Heure fin</th>
+                                                        <th width=10%>IP</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @if (int.Parse(lst[10]) != 0)
+                                                    {
+                                                        for (int i = 11; i < 11 + int.Parse(lst[10]); i++)
+                                                        {
+                                                            string val = lst[i].ToString();
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.ActionLink(val, "Details", new { id = lst[0], dateCom = val })
+                                                                </td>
+
+                                                                <td>@lst[i + 1]</td>
+                                                                <td>@lst[i + 2]</td>
+                                                                <td>@lst[i + 3]</td>
+                                                                <td>@lst[i + 4]</td>
+                                                                <td>@lst[i + 5]</td>
+                                                                <td>@lst[i + 6]</td>
+                                                                <td>@lst[i + 7]</td>
+                                                            </tr>
+
+                                                            i += 7;
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>  @*<hr class="new2">*@
+
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+    </section>
+}
+
+
+@section scripts
+{
+    <script src="toastr.js"></script>
+    <script>
+
+        //var lely = "@ViewBag.toaster";
+        $(document).ready(function () {
+            $("#clients").DataTable();
+           
+        })
+
+            //$("#idtoaster").val(lely);
+            //$(".toast").toast(hide);
+    </script>
+
+}
+
+@*@if (ViewBag.Error != null)
+    {
+        <h3 style="color:red">@ViewBag.Error</h3>
+    }*@

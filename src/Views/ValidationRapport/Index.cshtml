@@ -1,0 +1,208 @@
+﻿@model Helpdesk.Crmcli_SUPSUBv
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutPageMasterCommV.cshtml";
+}
+
+@section featured {
+   
+     <section>
+         <div>
+             <head>
+                 <style>
+                     .vertical-menu {
+                         width: 200px;
+                         font-size: 11px;
+                         cursor: pointer;
+                     }
+
+                         .vertical-menu a {
+                             background-color: #242426;
+                             color: white;
+                             display: block;
+                             padding: 31px;
+                             text-decoration: none;
+                         }
+
+                             .vertical-menu a:hover {
+                                 background-color: #D14C4C;
+                             }
+
+                             .vertical-menu a.active {
+                                 background-color: #D14C4C;
+                                 color: white;
+                             }
+
+                     thead th {
+                         font-size: 13px;
+                         padding: 15px !important;
+                         text-align: center;
+                         background-color: #E84545;
+                         color: white;
+                     }
+
+                     tr {
+                         font-size: 12px;
+                         padding: 15px !important;
+                         background-color: #242426;
+                         color: white;
+                     }
+
+                     td {
+                         font-size: 12px;
+                         padding: 15px !important;
+                         background-color: #242426;
+                         color: white;
+                     }
+
+                     .buttonDetails {
+                         background-color: #0094ff;
+                         border: none;
+                         color: white;
+                         padding: 5px 15px;
+                         text-align: center;
+                         font-size: 12px;
+                         margin: 4px 2px;
+                         opacity: 0.8;
+                         transition: 0.3s;
+                         display: inline-block;
+                         text-decoration: none;
+                         cursor: pointer;
+                     }
+
+                         .buttonDetails:hover {
+                             opacity: 1
+                         }
+                 </style>
+
+                 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+             </head>
+             <div class="col-sm-12">
+                 <label>Date Début:</label><input type="date" class="DateValidationIn" name="DateTimeIn" />
+                 <label>Date Fin:</label><input type="date" class="DateValidationOut"  name="DateTimeOut" />
+                 <input type="button" class="btn btn-primary" onclick="validationDate()" value="Filtre" />
+             </div>
+             @using (Html.BeginForm("Create", "ValidationRapport", FormMethod.Post))
+             {
+                 <div>
+                     @{var IDAGETNS = int.Parse(Session["UserId"].ToString());}
+                     @Html.TextBoxFor(model => model.IDValideur, new { @type = "hidden", @class = "form-unique", @Value = @IDAGETNS, @id = "IDAGETNS" })
+                     @Html.ValidationMessageFor(model => model.IDValideur)
+                 </div>
+
+                 <div class="col-sm-12" style="overflow:auto">
+                     <table id="clients">
+                         <thead>
+                             <tr>
+                                 <th>Consultant</th>
+                                 <th>Date rapport</th>
+                                 <th>heure validé Client</th>
+                                 <th>Total heure Validé Client</th>
+                                 <th>Total heure effectuée</th>
+                                 <th>Ecart d'heure</th>
+                                 <th>Commentaires</th>
+                                 <th>Actions</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             @if (ViewBag.ldv != null)
+                             {
+                                 foreach (var lst in ViewBag.ldv)
+                                 {
+                                     <tr class="row100">
+                                         <td>@lst[1]</td>
+                                         <td>@lst[2]</td>
+                                         <td>@lst[4]</td>
+                                         <td>@lst[5]</td>
+                                         <td>@lst[3]</td>
+                                         <td>
+                                             <div>
+                                                 <i class="material-icons" , style="color: lime">add</i>
+                                                 @Html.TextBoxFor(model => model.HPLUS, new { @class = "form-unique", @style = "border: ridge lime; text-align: center; font-weight: bold; font-size: 18px; width: 25%;", @id = "ECARTP" + @lst[0] + @lst[2], @Value = "00:00" })
+                                                 @Html.ValidationMessageFor(model => model.HPLUS)
+                                             </div><br />
+                                             <div>
+                                                 <i class="material-icons" , style="color: red">remove</i>
+                                                 @Html.TextBoxFor(model => model.HMOINS, new { @class = "form-unique", @style = "border: ridge red; text-align: center; font-weight: bold; font-size: 18px; width: 25%;", @id = "ECARTN" + @lst[0] + @lst[2], @Value = "00:00" })
+                                                 @Html.ValidationMessageFor(model => model.HMOINS)
+                                             </div>
+                                         </td>
+                                         <td>
+                                             <div>
+                                                 @Html.TextAreaFor(model => model.COMMS, new { @class = "form-unique", @style = "font-size: 14px; width: 100%;", @id = "COMMS" + @lst[0] + @lst[2], @Value = "" })
+                                                 @Html.ValidationMessageFor(model => model.COMMS)
+                                             </div>
+                                         </td>
+                                         <td>
+                                             @*<div>
+                                            @Html.TextBoxFor(model => model.HValidateur, new{ @class="form-unique", @style="border: ridge #f7f8f6; text-align: center; font-weight: bold; font-size: 20px; width: 25%;",@id="ID" + @lst[0] + @lst[2], @Value = @lst[3]})
+                                            @Html.ValidationMessageFor(model => model.HValidateur)
+                                        </div><br />*@
+                                             @Html.ActionLink("Valider", "Valider", "", new { @class = "buttonDetails", @onclick = "return Syncho('" + lst[0] + "', '" + lst[2] + "', '" + lst[3] + "','ECARTP" + @lst[0] + @lst[2] + "','ECARTN" + @lst[0] + @lst[2] + "','COMMS" + @lst[0] + @lst[2] + "')" })
+                                         </td>
+                                     </tr>
+                                 }
+                             }
+                         </tbody>
+                     </table>
+                 </div>
+             }
+         </div>
+    </section>
+    
+}
+
+<div class="col-lg-12">
+    &nbsp
+</div>
+
+@section scripts
+{
+    <script>
+        function redirect() {
+            var IDAGETNS = $("#IDAGETNS").val();
+            var link = '@Url.Action("Index", "ValidationRapport", new { id = "-1"})';
+            link = link.replace("-1", IDAGETNS);
+            window.location.href = link;
+        }
+        function validationDate() {
+            var dateDeb = $(".DateValidationIn").val();
+            var dateFin = $(".DateValidationOut").val();
+            var IDAGETNS = $("#IDAGETNS").val();
+            link = '@Url.Action("Index", "ValidationRapport")'+ '?dateDeb=' + dateDeb + '&dateFin=' + dateFin;
+            //alert(link);
+            window.location.href = link;
+        };
+        function Syncho(IdU, Date, TheureA, /*TheureV,*/ ECARTP, ECARTN, COMMS) {
+
+            var IDvalidateur = $("#IDAGETNS").val();
+            //var TheureVv = document.getElementById(TheureV).value;
+
+            var ECARTPv = document.getElementById(ECARTP).value;
+            var ECARTNv = document.getElementById(ECARTN).value;
+            var COMMSv = document.getElementById(COMMS).value;
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Valider", "ValidationRapport")',
+                dataType: "json",
+                data: JSON.stringify({ IDvalidateur: IDvalidateur, IdU: IdU, Date: Date, TheureA: TheureA, /*TheureVv: TheureVv,*/ ECARTPv: ECARTPv, ECARTNv: ECARTNv, COMMSv: COMMSv }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    //alert(result);
+                    redirect();
+                },
+                error: function (args) {
+                    //alert(args.responseText);
+                    redirect();
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $("#clients").DataTable()
+        })
+    </script>
+}

@@ -1,0 +1,106 @@
+﻿/*Tableau button*/
+.buttonAnnuler {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  font-size: 12px;
+  margin: 4px 2px;
+  opacity: 0.8;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+.buttonAnnuler:hover {opacity: 1}
+
+.buttonDetails {
+  background-color: #555555;
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  font-size: 12px;
+  margin: 4px 2px;
+  opacity: 0.8;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+.buttonDetails:hover {opacity: 1}
+
+/*Enregister/Annuler*/
+.buttonCancel {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 15px;
+  margin: 4px 2px;
+  opacity: 0.8;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+.buttonCancel:hover {opacity: 1}
+
+.buttonValide {
+  /*background-color: #f44336;*/
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 15px;
+  margin: 4px 2px;
+  opacity: 0.8;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+.buttonValide:hover {opacity: 1}
+
+/*Ajouter nouvelle demande*/
+.buttonAdd {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 15px;
+  margin: 4px 2px;
+  opacity: 0.8;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+.buttonAdd:hover {opacity: 1}
+
+/*Emplacement vertical des elements (Create demande)*/
+#Global #gauche {
+    float:left;
+    height:auto;
+    width:auto;
+    padding: 20px;
+}
+
+.misenforme{
+    line-height:100px;
+}
+
+.marge {
+    margin-bottom:20px;
+}
+
+.transparent{
+     background-color: #ffffff;
+     opacity: 0;
+     height:8px;
+     width:100%;
+}

@@ -1,0 +1,151 @@
+﻿@model Helpdesk.Models.Mailing
+
+@{
+    ViewBag.Title = "ValidationClient";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+    </style>
+</head>
+<header>
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+</header>
+
+@using (Html.BeginForm("ValidationClientT", "Intervention", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        @if (ViewBag.ldv != null)
+        {
+            foreach (var lst in ViewBag.ldv)
+            {
+                <legend>Envoyer CR</legend>
+        
+                <div>
+                    @Html.TextBoxFor(model => model.Attachement, new { @type = "hidden", @class = "form-unique", @Value = @lst[4].ToString() })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.IdCases, new { @type = "hidden", @class = "form-unique", @Value = @lst[5].ToString() })
+                </div>  
+                <div>
+                    @Html.TextBoxFor(model => model.DateIntervention, new { @type = "hidden", @class = "form-unique", @Value = @lst[6].ToString() })
+                </div>  
+            
+                <div class="row">
+                    <div class="col-sm-10 form-group">
+                        <div class="editor-label">
+                                @Html.Label("FROM", "De : ")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.From, new { @class = "form-unique", @Value = @lst[0] })
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10 form-group">
+                        <div class="editor-label">
+                                @Html.Label("TO", "Destinataire(s) : ")
+                            </div>
+                            <div>
+                                @if (lst[3] != null)
+                                {
+                                    string listeC = lst[3].ToString();
+                                    
+                                    @Html.TextArea("To", listeC, new { @class = "form-unique" })
+                                }
+                                @Html.ValidationMessageFor(model => model.To)
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10 form-group">
+                        <div class="editor-label">
+                                @Html.Label("SUJET", "Sujet : ")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Sujet, new { @class = "form-unique", @Value = @lst[1] })
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10 form-group">
+                        <div class="editor-label">
+                                @Html.Label("BODY", "Mail : ")
+                            </div>
+                            <div>
+                                @if (lst[2] != null)
+                                {
+                                    string listeC = lst[2].ToString();
+                                    
+                                    @Html.TextArea("Body", listeC, new { @class = "form-unique" })
+                                }
+                                @Html.ValidationMessageFor(model => model.Body)
+                                
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10 form-group">
+                        <div class="editor-label">
+                                @Html.Label("ATTACH", "Pièce(s) jointe(s) : ")
+                            </div>
+                            <div>
+                                <input type="file" name="ATTACHEM" multiple="multiple" id="fileInput"/>
+                            </div>
+                    </div>
+                </div>
+                
+                @*<div class="row">
+                    <div class="col-sm-12 form-group">
+                        <input type="button" name="valiDI" value="Envoyer" class="form-unique" onclick="valiDINT()"/>
+                    </div>
+                </div>*@
+            
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <input type="submit" value="Envoyer" class="form-unique"/>
+                    </div>
+                </div>
+            }
+        }
+    </fieldset>
+}
+
+@*@section scripts
+{
+    <script>
+        function valiDINT() {
+                var files = $("#fileInput").get(0).files;
+                var fileData = new FormData();
+
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append("fileInput", files[i]);
+                }
+
+                var collection = $('form').serialize();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ValidationClientT", "Intervention")',
+                    datatype: "json",
+                    contentType: false, // Not to set any content header
+                    processData: false,
+                    data: fileData,
+                    
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    alert(result);
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+    </script>
+}*@

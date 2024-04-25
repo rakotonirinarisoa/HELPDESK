@@ -1,0 +1,123 @@
+﻿@model Helpdesk.Crmcli_AffectationProds
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+<header>
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+</header>
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+
+        thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #D14C4C;
+            color:white;
+        }
+
+        tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+    </style>
+</head>
+
+@using (Html.BeginForm("Create","Agent",FormMethod.Post)) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <h3>Nouvelle affectation</h3>
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        
+        <div class="col-sm-12 form-group">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.AFF_Produit, "Produit")
+            </div>
+            <div>
+                @Html.DropDownListFor(model => model.Produit, new SelectList(Model.Produit), "", new { @class = "form-unique" })
+                @Html.ValidationMessageFor(model => model.AFF_Produit)
+            </div>
+        </div>
+        
+        <div class="col-sm-12 form-group">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.AFF_Agent, "Agent")
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.AFF_Agent, new { @class="form-unique", @Value = @ViewBag.Agent })
+            </div>
+        </div>
+            
+        <div class="col-sm-12 form-group">
+            <input type="submit" value="Enregistrer" class="form-unique"/>
+        </div>
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+
+        <div class="row">
+            @Html.ValidationSummary(true)
+            
+            <div class="col-sm-12">
+                <legend>Référez-vous par le tableau ci-dessous pour les ID des agents (séparateur virgule)</legend>
+		        <table id="clients">
+			        <thead>
+				        <tr>
+					        <th width=40%>Nom</th>
+					        <th width=40%>Prénom</th>
+					        <th width=10%>ID de l'agent</th>
+				        </tr>
+			        </thead>
+			        <tbody>
+		                @if (ViewBag.ldv != null)
+		                {
+		                    foreach (var lst in ViewBag.ldv)
+		                    {
+		                        <tr>
+                                    <td>@lst[1]</td>
+						            <td>@lst[2]</td>
+						            <td>@lst[0]</td>
+		                        </tr>
+		                    }
+		                }
+			        </tbody>
+		        </table>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+
+    </fieldset>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#clients").DataTable()
+        })
+    </script>
+}
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")}*@

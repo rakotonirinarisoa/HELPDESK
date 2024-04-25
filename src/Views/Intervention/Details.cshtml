@@ -1,0 +1,491 @@
+﻿@model Helpdesk.Models.Cr
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+
+        .LinkToBut
+        {
+            /*background: url(../Images/image.gif) no-repeat top left;*/
+                display: block;
+                width: 150px;
+                height: 150px;
+                text-indent: -9999px; /* hides the link text */
+        }
+
+        .buttonDetails {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 12px;
+            margin: 4px 2px;
+            opacity: 0.8;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .buttonDetails:hover {opacity: 1}
+
+        thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #D14C4C;
+            color:white;
+        }
+
+        tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+    </style>
+</head>
+<header>
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+</header>
+
+@using (Html.BeginForm("ValidationClient" , "Intervention", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        @if (ViewBag.lis != null)
+	    {
+            var DestCLT = "";
+            var DestMAIL = "";
+		    foreach (List<string> lst in ViewBag.lis)
+		    {
+                <h3>Détails de l'intervention</h3>
+            
+                <div>
+                    @Html.TextBoxFor(model => model.IdCases, new { @type = "hidden", @class = "form-unique", @Value = int.Parse(@lst[0]) })
+                </div>
+            
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                                @Html.Label("Refticket","Référence ticket")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.RefTicket, new { @class = "form-unique", @Value = @lst[1] })
+                            </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                                @Html.Label("Type","Type intervention")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Type, new { @class = "form-unique", @Value = @lst[7] })
+                            </div>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <div class="editor-label">
+                                @Html.Label("Module","Module(s) et version(s)")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Module, new { @class = "form-unique", @Value = @lst[5] })
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                                @Html.Label("Date","Date d'intervention")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.DateIntervention, new { @class = "form-unique", @Value = @lst[9] })
+                            </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                                @Html.Label("Hdeb","Heure début")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Hdeb, new { @class = "form-unique", @Value = @lst[10] })
+                            </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                                @Html.Label("Hfin","Heure fin")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Hfin, new { @class = "form-unique", @Value = @lst[11] })
+                            </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                                @Html.Label("LIEU","Lieu")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Lieu, new { @class = "form-unique", @Value = @lst[8] })
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                                @Html.Label("Clt","Client")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Client, new { @class = "form-unique", @Value = @lst[6] })
+                            </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                                @Html.Label("Sujet","Sujet")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Sujet, new { @class = "form-unique", @Value = @lst[2] })
+                            </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                                @Html.Label("Desc","Description du problème")
+                            </div>
+                            <div>
+                                @Html.TextArea("DESC_PROB", @lst[3],new { @class = "form-unique"})
+                                @Html.ValidationMessageFor(model => model.DESCPROBLEME)
+                            </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                                @Html.Label("ConsultInterv","Consultant(s) intervenant(s)")
+                            </div>
+                            <div>
+                                @if(ViewBag.lisCon != null)
+                                {
+                                    var listeConsu = "";
+                                    foreach (var lstCON in ViewBag.lisCon)
+                                    {
+                                        listeConsu += lstCON.ToString();
+                                    }
+                                    @Html.TextArea("CONSULTINTERV", listeConsu,new { @class = "form-unique" })
+                                }
+                                @Html.ValidationMessageFor(model => model.CONSULTINTERV)
+                            </div>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <div class="editor-label">
+                                @Html.Label("DEST_CLT","Destinataire(s) client")
+                            </div>
+                            <div>
+                                @if(ViewBag.lisCN != null)
+                                {
+                                    var listeC = "";
+                                    foreach (var lstCmm in ViewBag.lisCN)
+                                    {
+                                        listeC += lstCmm.ToString() + "\r\n";
+                                    }
+                                    DestCLT = listeC;
+                                    @Html.TextArea("DESTCLT", listeC,new { @class = "form-unique"})
+                                }
+                                @Html.ValidationMessageFor(model => model.DESTCLT)
+                                @*@Html.TextAreaFor(model => model.DestinataireC, new { @class = "form-unique" })*@
+                            </div>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <div class="editor-label">
+                                @Html.Label("DEST_MAILCLT","Mails des destinataires client")
+                            </div>
+                            <div>
+                                @if(ViewBag.lisCM != null)
+                                {
+                                    var listeC = "";
+                                    foreach (var lstCmm in ViewBag.lisCM)
+                                    {
+                                        listeC += lstCmm.ToString() + "\r\n";
+                                    }
+                                    DestMAIL = listeC;
+                                    @Html.TextArea("DESTMAIL", listeC, new { @class = "form-unique"})
+                                }
+                                @Html.ValidationMessageFor(model => model.DESTMAIL)
+                                @*@Html.TextAreaFor(model => model.DestinataireS, new { @class = "form-unique" })*@
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <div class="editor-label">
+                                @Html.Label("DOC_REMIS","Documents remis")
+                            </div>
+                            <div>
+                                @if (@lst[12].ToString() != String.Empty)
+                                {
+                                    @Html.TextBoxFor(model => model.DocRem, new { @class = "form-unique", @Value = @lst[12]})
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.DocRem, new { @class = "form-unique" })
+                                }
+                            </div>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <div class="editor-label">
+                                @Html.Label("DOC_ANNEX","Documents liés et annexés")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.DocAnnex, new { @class = "form-unique" })
+                            </div>
+                    </div>
+                </div>
+                @*<div class="row">
+                    <div class="col-sm-12 form-group">
+                        <div class="editor-label">
+                                @Html.Label("ATTACH","Pièce(s) jointe(s) (documents liés et annexés) : ")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Attachement, new { @class = "form-unique", @type="file", @name="attache", @multiple="multiple", @AllowMultiple = "true" })
+                            </div>
+                    </div>
+                </div>*@
+            
+                <div class="col-lg-12">
+                    &nbsp
+                </div>
+                <h5>Liste des tâches</h5>
+                <div class="col-sm-12" style="overflow:auto">
+		            <table>
+				        <thead>
+					        <tr>
+                                <th width=10%>Thème</th>
+                                <th width=15%>Problème / Besoin</th>
+                                <th width=15%>Tâche effectuée</th>
+                                <th width=5%>Durée</th>
+						        <th width=25%>Observation</th>
+                                <th width=5%>Statut</th>
+						        <th width=25%>Personne présente</th>
+					        </tr>
+				        </thead>
+				        <tbody>
+		                    @if (ViewBag.lisT != null)
+		                    {
+                                foreach (List<string> lstTa in ViewBag.lisT)
+		                        {
+                                    if(lstTa.Count() != null)
+                                    {
+                                        var participants = @lstTa[8];
+                                        var participants2 = @lstTa[7];
+		                                <tr>
+                                            <td>@lstTa[1]</td>
+                                            <td>@lstTa[2]</td>
+						                    <td>@lstTa[3]</td>
+						                    <td>@lstTa[4]</td>
+						                    <td>@lstTa[5]</td>
+                                            <td>@lstTa[6]</td>
+						                    <td>@participants <br /> @participants2</td>
+		                                </tr>
+                                    }
+		                        }
+		                    }
+				        </tbody>
+			        </table>
+                </div>
+            
+                <div class="col-lg-12">
+                    &nbsp
+                </div>
+                <h5>Plan d'actions</h5>
+                <div class="col-sm-12" style="overflow:auto">
+		            <table>
+				        <thead>
+					        <tr>
+                                <th width=50%>Objet / Tâche</th>
+                                <th width=25%>Intervenant</th>
+                                <th width=25%>Echéance</th>
+					        </tr>
+				        </thead>
+				        <tbody>
+		                    @if (ViewBag.lisP != null)
+		                    {
+                                foreach (List<string> lstPl in ViewBag.lisP)
+		                        {
+                                    if(lstPl.Count() != 0)
+                                    {
+                                        var participants = @lstPl[2];
+                                        var participants2 = @lstPl[3];
+                                        <tr>
+                                            <td>@lstPl[1]</td>
+                                            <td>@participants <br /> @participants2</td>
+						                    <td>@lstPl[4]</td>
+		                                </tr>
+                                    }
+		                        }
+		                    }
+				        </tbody>
+			        </table>
+                </div>  
+            
+                <div class="col-lg-12">
+                    &nbsp
+                </div>
+                <h5>Suivi des dates d'envoie du CR</h5>
+                <div class="col-sm-12" style="overflow:auto">
+		            <table>
+				        <thead>
+					        <tr>
+                                <th width=50%>Date d'envoi pour validation en interne</th>
+                                <th width=50%>Date d'envoi au client</th>
+					        </tr>
+				        </thead>
+				        <tbody>
+		                    @if (ViewBag.lisDA != null)
+		                    {
+                                foreach (List<string> lstd in ViewBag.lisDA)
+		                        {
+                                    if(lstd.Count() != 0)
+                                    {
+                                        <tr>
+                                            <td>@lstd[0]</td>
+                                            <td>@lstd[1]</td>
+		                                </tr>
+                                    }
+		                        }
+		                    }
+				        </tbody>
+			        </table>
+                </div>  
+            
+                <div class="col-lg-12">
+                    &nbsp
+                </div>
+            
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                         <input type="button" name="generer" value="Générer CR" class="form-unique" onclick="genererR()" />
+                    </div>
+                    @*<div class="col-sm-3 form-group">
+                         <input type="button" name="generer" value="Générer PV" class="form-unique" onclick="genererPV()" />
+                    </div>*@
+                    <div class="col-sm-3 form-group">
+                        <input type="button" name="ValidationInterne" value="Envoyer CR pour validation" class="form-unique" onclick="validationInterne()" />
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <input type="submit" name="ValidationClient" value="Envoyer CR au client" class="form-unique" onclick ="validationClient()" />
+                    </div>
+
+                    @{
+                        Helpdesk.ModelHELPD db = new Helpdesk.ModelHELPD();
+
+                        int idCa = int.Parse(@lst[0]);
+                    
+                        DateTime Dte = DateTime.Parse(@lst[9].ToString());
+                    
+                        if (db.Crmcli_ValidateFiches.Where(a => a.ID_Cases == idCa && 
+                            (a.Date_Comm.Value.Day == Dte.Day && a.Date_Comm.Value.Month == Dte.Month && a.Date_Comm.Value.Year == Dte.Year)).Count() != 0)
+                        {
+                            <div class="col-sm-3 form-group">
+                                <input type="button" name="GenererFICHE" value="Générer fiche d'intervention" class="form-unique" onclick="genererF()" />
+                            </div>
+                        }
+                    }
+
+                </div>
+            
+                <div class="col-lg-12">
+                    &nbsp
+                </div>
+		    }
+	    }
+    </fieldset>
+}
+
+@section scripts
+{
+    <script>
+        function genererR() {
+            var collection = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Generer", "Intervention")',
+                datatype: "json",
+                data: collection,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    window.location = '@Url.Action("GenererG", "Intervention")?filename=' + result;
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+        function genererPV() {
+            var collection = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Generer", "Intervention")',
+                datatype: "json",
+                data: collection,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    window.location = '@Url.Action("GenererPV", "Intervention")?filename=' + result;
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+
+        function validationInterne() {
+            var collection = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ValidationInterne", "Intervention")',
+                datatype: "json",
+                data: collection,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    alert(result);
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+
+        function genererF() {
+            var collection = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GenererFICHE", "Intervention")',
+                datatype: "json",
+                data: collection,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    window.location = '@Url.Action("GenererF", "Intervention")?filename=' + result;
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+    </script>
+}

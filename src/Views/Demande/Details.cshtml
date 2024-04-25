@@ -1,0 +1,452 @@
+﻿@model Helpdesk.Crmcli_Demandes
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+
+        .buttonHistoI {
+            background-color: #0094ff;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 12px;
+            margin: 4px 2px;
+            opacity: 0.8;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .buttonHistoI:hover {opacity: 1}
+
+        .buttonHiD {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 12px;
+            margin: 4px 2px;
+            opacity: 0.8;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .buttonHiD:hover {opacity: 1}
+
+        .buttonFORM {
+            background-color: #ffd800;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 12px;
+            margin: 4px 2px;
+            opacity: 0.8;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .buttonFORM:hover {opacity: 1}
+
+        thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #D14C4C;
+            color:white;
+        }
+
+        tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        .buttonHisto {
+            background-color: #D14C4C;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 12px;
+            margin: 4px 2px;
+            opacity: 0.8;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .buttonHisto:hover {opacity: 1}
+    </style>
+</head>
+<header>
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+</header>
+
+@using (Html.BeginForm("HistoRel", "Demande", FormMethod.Post))
+{
+    <fieldset>
+
+    @if (ViewBag.ldv != null)
+    {
+        foreach (var lst in ViewBag.ldv)
+        {
+            <h3>Détails de la demande</h3>
+        
+            <div>
+                @Html.TextBoxFor(model => model.ID, new { @type = "hidden", @class = "form-unique", @Value = int.Parse(@lst[7]) })
+            </div>
+        
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <div >
+                        @Html.LabelFor(model => model.Comp_CompanyId, "Client")
+                    </div>
+                    <div >
+                        @Html.TextBoxFor(model => model.Comp_CompanyId, new { @class = "form-unique", @Value = @lst[17] })
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <div >
+                        @Html.LabelFor(model => model.Demandeur, "Nom et prénom du demandeur")
+                    </div>
+                    <div >
+                        @Html.TextBoxFor(model => model.Demandeur, new { @class = "form-unique", @Value = @lst[12] })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <div >
+                        @Html.LabelFor(model => model.NumeroDemande, "Numéro de la demande")
+                    </div>
+                    <div >
+                        @Html.TextBoxFor(model => model.NumeroDemande, new { @class = "form-unique", @Value = @lst[0] })
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.ProduitDemande, "Produit")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.ProduitDemande, new { @class = "form-unique", @Value = @lst[4] })
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div >
+                        @Html.LabelFor(model => model.SujetDemande, "Sujet")
+                    </div>
+                    <div >
+                        @Html.TextBoxFor(model => model.SujetDemande, new { @class = "form-unique", @Value = @lst[1] })
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DescriptionDemande, "Description")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.DescriptionDemande, new { @class = "form-unique", @Value = @lst[2] })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.TypeDemande, "Type")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.TypeDemande, new { @class = "form-unique", @Value = @lst[3] })
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.PrioriteDemande, "Priorité")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.PrioriteDemande, new { @class = "form-unique", @Value = @lst[5] })
+                    </div>
+                </div>
+
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.NiveauDemande, "Niveau")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.NiveauDemande, new { @class = "form-unique", @Value = @lst[14] })
+                    </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.CommentaireNivDemande, "Commentaire sur la priorité")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.CommentaireNivDemande, new { @class = "form-unique", @Value = @lst[15] })
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+                <div class="col-sm-4 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DateDemande, "Date de la demande")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.DateDemande, new { @class = "form-unique", @Value = @lst[8] })
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DatePropose, "Date/Heure proposée")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.DatePropose, new { @class = "form-unique", @Value = @lst[9] })
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DateAccepte, "Date confirmée")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.DatePropose, new { @class = "form-unique", @Value = @lst[10] })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.EtatDemande, "Etat")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.EtatDemande, new { @class = "form-unique", @Value = @lst[6] })
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Theme, "Thème")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Theme, new { @class = "form-unique", @Value = @lst[18] })
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Rubrique, "Rubrique")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Rubrique, new { @class = "form-unique", @Value = @lst[19] })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @{
+                int Et = int.Parse(lst[13]);
+                if (Et == 4)
+                {
+                            <div class="col-sm-12 form-group">
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.ComAnnulation, "Commentaire d'annulation")
+                                </div>
+                                <div>
+                                    @Html.TextBoxFor(model => model.ComAnnulation, new { @class = "form-unique", @Value = @lst[11] })
+                                </div>
+                            </div>
+                }
+                    }
+            </div>
+        
+            if (@lst[16] == "1")
+            {
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <input type="submit" name="HistoRel" value="Historique des relances" class="form-unique" />
+                    </div>
+                </div>
+            }
+        }
+    }
+
+    <div class="col-lg-12">
+        &nbsp
+    </div>
+
+    @*Historique des interventions avec bouton valider*@
+    <h3>Historiques des interventions</h3>    
+        <div class="col-sm-12" style="overflow:auto">
+            <table id="clients">
+				<thead>
+					<tr>
+						<th>Date</th>
+                        <th>Agent</th>
+                        <th>Sujet</th>
+						<th>Description</th>
+
+                        <th>Etat</th>
+                        <th>Activité</th>
+                        <th>Nature</th>
+
+                        <th>Séance (Formation)</th>
+                        <th>Personnes présentes (Formation)</th>
+
+                        <th>Commentaire sur l'état</th>
+
+                        <th>Observation</th>
+
+						<th>Validateur</th>
+						<th>Date de validation</th>
+						<th>Heure début</th>
+						                
+                        <th>Heure fin</th>
+
+                        <th>IP</th>
+
+                        <th>Heure début pause 1</th>
+						                
+                        <th>Heure fin pause 1</th>
+
+                        <th>Heure début pause 2</th>
+						                
+                        <th>Heure fin pause 2</th>
+
+                        <th>Lien validation (CLIENT)</th>
+
+                        <th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+		            @if (ViewBag.lHisto != null)
+              {
+                  foreach (var lst in ViewBag.lHisto)
+                  {
+		                    <tr class="row100">
+		                        <td>@lst[1]</td>
+                                <td>@lst[10]</td>
+                                <td>@lst[2]</td>
+						        <td>@lst[3]</td>
+
+                                <td>@lst[11]</td>
+                                <td>@lst[12]</td>
+                                <td>@lst[13]</td>
+
+                                <td>@lst[20]</td>
+                                <td>@lst[21]</td>
+
+						        <td>@lst[14]</td>
+
+                                <td>@lst[4]</td>
+
+                                <td>@lst[7]</td>
+						        <td>@lst[8]</td>
+						        <td>@lst[5]</td>
+
+                                <td>@lst[6]</td>
+
+                                <td>@lst[9]</td>
+
+                                <td>@lst[15]</td>
+                                <td>@lst[16]</td>
+                                <td>@lst[17]</td>
+                                <td>@lst[18]</td>
+                                <td style="font-size: 12px; padding: 15px !important; background-color: #242426; color:white;"><a href="#">@lst[19]</a></td>
+
+                                <td>
+                                    @{
+                                        var TYPE = lst[12];
+                                        if (TYPE == "Formation clients")
+                                        {
+                                            <input type="button" name="FicheFormation" value="Fiche de formation" class="buttonFORM" onclick="return genererR(@lst[0])" />
+                                        }
+                                    }
+                                    @if (Session["IsAdmin"] != null)
+                                    {
+                                        var idI = int.Parse(lst[0]);
+                                        
+                                        @Html.ActionLink("Modifier heure", "ModifHeuR", new { id = idI }, new { @class = "buttonHistoI" }) <br />
+                                    }
+                                    @{
+                                    var idITT = int.Parse(lst[0]);
+                                        
+                                        @Html.ActionLink("Modifier intervention", "ModifInterv", new { id = idITT }, new { @class = "buttonHiD" }) <br />
+                                    }
+                                    <input type="button" name="Delete" value="Supprimer" class="buttonAnnuler" onclick="return confdel(@lst[0])" />
+                                </td>
+		                    </tr>
+                  }
+              }
+				</tbody>
+			</table>
+        </div>
+</fieldset>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#clients").DataTable()
+        })
+
+        function confdel(idT) {
+            var res = confirm("Êtes-vous sûr de vouloir supprimer cette intervention?");
+            if (res) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteH", "Demande")',
+                    dataType: "json",
+                    data: JSON.stringify({ id: idT }),
+
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        alert(result);
+                        window.location.href = "@Url.Action("Details", "Demande")";
+                    },
+                    error: function (args) {
+                        alert(args.responseText);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+
+        function genererR(idT) {
+            var id = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("FicheFormation", "Demande")',
+                datatype: "json",
+                data: JSON.stringify({ id: idT }),
+
+                contentType: 'application/json; charset=utf-8',
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    window.location = '@Url.Action("GenererG", "Demande")?filename=' + result;
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+         }
+    </script>
+}

@@ -1,0 +1,190 @@
+﻿@model Helpdesk.Crmcli_SousTaches
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+<header>
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+</header>
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+    </style>
+</head>
+
+@using (Html.BeginForm("Create", "Intervention", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Détails de l'intervention</legend>
+        @if (ViewBag.ldv != null)
+        {
+            foreach (List<string> lst in ViewBag.ldv)
+            {
+                <div class="row">
+                    
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.Label("NumeroDemande","Numéro demande")
+                        </div>
+                        <div>
+                            @Html.TextBox("NumeroDemandeVAL", @lst[8], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.Label("RefTicket","Référence ticket")
+                        </div>
+                        <div>
+                            @Html.TextBox("RefTicketVAL", @lst[9], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.Label("SUJET","Sujet")
+                        </div>
+                        <div>
+                            @Html.TextBox("SUJETVAL", @lst[0], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                            @Html.Label("STATUS","Status")
+                        </div>
+                        <div>
+                            @Html.TextBox("STATUSVAL", @lst[3], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                            @Html.Label("PRIORITE","Priorité")
+                        </div>
+                        <div>
+                            @Html.TextBox("PRIORITEVAL", @lst[4], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                            @Html.Label("DATED","Date début")
+                        </div>
+                        <div>
+                            @Html.TextBox("DATEDVAL", @lst[5], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <div class="editor-label">
+                            @Html.Label("DATEF","Date fin")
+                        </div>
+                        <div>
+                            @Html.TextBox("DATEFVAL", @lst[6], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.Label("NOTE","Description du travail")
+                        </div>
+                        <div>
+                            @Html.TextArea("NOTEVAL", @lst[1], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.Label("INTERVENANT","Les intervenants")
+                        </div>
+                        <div>
+                            @Html.TextArea("INTERVENANTVAL", @lst[7], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.Label("PLANIFICATION","Plan d'action")
+                        </div>
+                        <div>
+                            @Html.TextArea("PLANIFICATIONVAL", @lst[2], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                @if (lst[10] == "True")
+                {
+                    <legend>Intervention déjà confirmée</legend>
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.Label("DATED","Date début confirmée")
+                        </div>
+                        <div>
+                            @Html.TextBox("DATEDVAL", @lst[11], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.Label("DATEF","Date fin confirmée")
+                        </div>
+                        <div>
+                            @Html.TextBox("DATEFVAL", @lst[12], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.Label("Comment","Commentaires")
+                        </div>
+                        <div>
+                            @Html.TextBox("CommentVAL", @lst[13], new { @class = "form-unique" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <legend>Confirmation de l'intervention</legend>
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.DateDebut,"Date début confirmée")
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(model => model.DateDebut, new { type = "datetime-local", @class = "form-unique" })
+                            @Html.ValidationMessageFor(model => model.DateDebut)
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.DateFin,"Date fin confirmée")
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(model => model.DateFin, new { type = "datetime-local", @class = "form-unique" })
+                            @Html.ValidationMessageFor(model => model.DateFin)
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Commentaires,"Commentaires")
+                        </div>
+                        <div>
+                            @Html.TextAreaFor(model => model.Commentaires, new { @class = "form-unique" })
+                            @Html.ValidationMessageFor(model => model.Commentaires)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 form-group">
+                            <input type="submit" value="Confirmer" class="form-unique"/>
+                        </div>
+                    </div>
+                }
+                </div>
+            }
+        }
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

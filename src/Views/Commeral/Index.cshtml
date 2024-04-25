@@ -1,0 +1,299 @@
+﻿@model Helpdesk.Crmcom_CommercialeProsp
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageMasterComm.cshtml";
+}
+
+@section featured {
+   
+     <section>
+        <div>
+            <head>
+                <style>
+                    .vertical-menu {
+                      width: 200px;
+                      font-size: 11px;
+                      cursor: pointer;
+                    }
+
+                    .vertical-menu a {
+                      background-color: #242426;
+                      color: white;
+                      display: block;
+                      padding:31px;
+                      text-decoration: none;
+                    }
+
+                    .vertical-menu a:hover {
+                      background-color: #D14C4C;
+                    }
+
+                    .vertical-menu a.active {
+                      background-color: #D14C4C;
+                      color: white;
+                    }
+
+                    thead th {
+                      font-size: 13px;
+                      padding: 15px !important;
+                      text-align: center;
+                      background-color: #E84545;
+                      color:white;
+                    }
+
+                    tr {
+                      font-size: 12px;
+                      padding: 15px !important;
+                      background-color: #242426;
+                      color:white;
+                    }
+
+                    td {
+                        font-size: 12px;
+                        padding: 15px !important;
+                        background-color: #242426;
+                        color:white;
+                    }
+
+                    .buttonDetails {
+                      background-color: #0094ff;
+                      border: none;
+                      color: white;
+                      padding: 5px 15px;
+                      text-align: center;
+                      font-size: 12px;
+                      margin: 4px 2px;
+                      opacity: 0.8;
+                      transition: 0.3s;
+                      display: inline-block;
+                      text-decoration: none;
+                      cursor: pointer;
+                    }
+                    .buttonDetails:hover {opacity: 1}
+
+                    .buttonDupl {
+                      background-color: #b200ff;
+                      border: none;
+                      color: white;
+                      padding: 5px 15px;
+                      text-align: center;
+                      font-size: 12px;
+                      margin: 4px 2px;
+                      opacity: 0.8;
+                      transition: 0.3s;
+                      display: inline-block;
+                      text-decoration: none;
+                      cursor: pointer;
+                    }
+                    .buttonDupl:hover {opacity: 1}
+
+                    .buttonSynch {
+                      background-color: #ffd800;
+                      border: none;
+                      color: white;
+                      padding: 5px 15px;
+                      text-align: center;
+                      font-size: 12px;
+                      margin: 4px 2px;
+                      opacity: 0.8;
+                      transition: 0.3s;
+                      display: inline-block;
+                      text-decoration: none;
+                      cursor: pointer;
+                    }
+                    .buttonSynch:hover {opacity: 1}
+                    
+                    .buttonAnnuler {
+                      background-color: #f00;
+                      border: none;
+                      color: white;
+                      padding: 5px 15px;
+                      text-align: center;
+                      font-size: 12px;
+                      margin: 4px 2px;
+                      opacity: 0.8;
+                      transition: 0.3s;
+                      display: inline-block;
+                      text-decoration: none;
+                      cursor: pointer;
+                    }
+                    .buttonAnnuler:hover {opacity: 1}
+
+                    .buttonFi {
+                      background-color: #0094ff;
+                      border: none;
+                      color: white;
+                      padding: 5px 15px;
+                      text-align: center;
+                      font-size: 12px;
+                      margin: 4px 2px;
+                      opacity: 0.8;
+                      transition: 0.3s;
+                      display: inline-block;
+                      text-decoration: none;
+                      cursor: pointer;
+                    }
+                    .buttonFi:hover {opacity: 1}
+                </style>
+            </head>
+
+    @using (Html.BeginForm("Create", "Commeral", FormMethod.Post))
+    {
+                <div>
+                    @{var IDAGETNS = int.Parse(Session["UserId"].ToString());}
+                    @Html.TextBoxFor(model => model.IDAGETNS, new { @type = "hidden", @class = "form-unique", @Value = @IDAGETNS, @id = "IDAGETNS" })
+                    @Html.ValidationMessageFor(model => model.IDAGETNS)
+                </div>
+                <div class="row" style="width: 100%; position: relative;">
+                    <div class="col-sm-12 form-group">
+                        <input type="submit" name="CreateNew" value="Nouveau" class="form-unique" style="float: right; width: 100%; margin-right: -1%; background-color: #2BA351; border: 1px solid #2BA351;"/>
+                    </div>
+@*                    <div class="col-sm-6 form-group">
+                        <input type="button" name="Synchrr" value="Synchroniser avec CRM" class="form-unique" style="float: right; width: 100%; margin-right: -1%; background-color: #732AA8; border: 1px solid #732AA8;" onclick="Synchrr()" />
+                    </div>*@
+                </div>
+        
+            	<div class="col-sm-12" style="overflow:auto">
+                    <table id="clients">
+				        <thead>
+					        <tr>
+                                <th>Référence</th>
+						        <th>Client</th>
+                                <th>Type client</th>
+                                <th>Saisisseur</th>
+						        <th>Etat</th>
+						        <th>Date début</th>
+
+						        <th>Produit</th>
+						        <th>Classification</th>
+						        <th>Source</th>
+                                <th>Etape SOFTWELL</th>
+
+						        <th>Actions</th>
+					        </tr>
+				        </thead>
+				        <tbody>
+		                    @if (ViewBag.ldv != null)
+                      {
+                          foreach (var lst in ViewBag.ldv)
+                          {
+		                            <tr class="row100">
+		                                <td>@lst[3]</td>
+                                        <td>@lst[1]</td>
+                                        <td>@lst[2]</td>
+						                <td>@lst[4]</td>
+						                <td>@lst[5]</td>
+
+                                        <td>@lst[6]</td>
+						                <td>@lst[7]</td>
+						                <td>@lst[8]</td>
+                                        <td>@lst[9]</td>
+                                        <td>@lst[10]</td>
+
+						                <td>
+		                                    @Html.ActionLink("Détails", "Edit", new { id = int.Parse(lst[0]) }, new { @class = "buttonDetails" }) 
+                                            @Html.ActionLink("Dupliquer", "Dupli", new { id = int.Parse(lst[0]) }, new { @class = "buttonDupl" })<br />
+                                            @Html.ActionLink("Synchroniser", "Syncho", new { id = int.Parse(lst[0]) }, new { @class = "buttonSynch", @onclick = "return Syncho(@lst[0])" }) <br />
+                                            <input type="button" name="Delete" value="Supprimer" class="buttonAnnuler" onclick="return confdel(@lst[0])" />
+                                            
+                                            @*@Html.ActionLink("Supprimer", "Delete", new { id=int.Parse(lst[0]) }, new { @class ="buttonAnnuler", onclick="confdel()"}) <br />*@
+						                </td>
+		                            </tr>
+                          }
+                      }
+				        </tbody>
+			        </table>
+            	</div>
+    }
+        	</div>
+    </section>
+    
+}
+
+<div class="col-lg-12">
+    &nbsp
+</div>
+
+@section scripts
+{
+    <script>
+        function redirect() {
+            var IDAGETNS = $("#IDAGETNS").val();
+            var link = '@Url.Action("Index", "Commeral", new { id = "-1" })';
+            link = link.replace("-1", IDAGETNS);
+            window.location.href = link;
+        }
+
+        function confdel(idT) {
+            var res = confirm("Êtes-vous sûr de vouloir supprimer cette opportunité?");
+            if (res) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete", "Commeral")',
+                    dataType: "json",
+                    data: JSON.stringify({ id: idT }),
+                    contentType: 'application/json; charset=utf-8',
+                    
+                    success: function (result) {
+                        alert(result);
+                        redirect();
+                        //window.location.href = "@Url.Action("Index", "Commeral")";
+                    },
+                    error: function (args) {
+                        alert(args.responseText);
+                        redirect();
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+
+        function Syncho(idT) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Syncho", "Commeral")',
+                dataType: "json",
+                data: JSON.stringify({ id: idT }),
+                contentType: 'application/json; charset=utf-8',
+                    
+                success: function (result) {
+                    alert(result);
+                    redirect();
+                },
+                error: function (args) {
+                    //alert(args.responseText);
+                    redirect();
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $("#clients").DataTable()
+        })
+
+        function Synchrr() {
+            var collection = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Synchrr", "Commeral")',
+                datatype: "json",
+                data: collection,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    alert(result);
+                    window.location.href = "@Url.Action("Index", "Commeral")";
+                },
+
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+
+    </script>
+}

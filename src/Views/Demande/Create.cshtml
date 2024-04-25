@@ -1,0 +1,736 @@
+﻿@model Helpdesk.Crmcli_Demandes
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+<header>
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+</header>
+<head>
+        <style>
+        #loading-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+}
+
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+}
+
+    
+keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    color: #f3f3f3;
+    font-size: 16px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+    </style>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+
+        .select2-container--material {
+            width: 100% !important;
+            border: 1px solid whitesmoke;
+            height: 50px;
+        }
+
+            .select2-container--material .select2-selection--single {
+                background-color: #fff;
+                border-radius: 0;
+                box-shadow: none;
+                box-sizing: content-box;
+                min-height: 10px;
+                margin: 0;
+                outline: none;
+                padding: 8px;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+
+                .select2-container--material .select2-selection--single .select2-selection__rendered {
+                    color: rgba(0, 0, 0, 0.6);
+                    line-height: 28px;
+                    padding-left: 0;
+                }
+
+                .select2-container--material .select2-selection--single .select2-selection__clear {
+                    cursor: pointer;
+                    float: right;
+                    font-weight: bold;
+                }
+
+                .select2-container--material .select2-selection--single .select2-selection__placeholder {
+                    color: #999;
+                }
+
+                .select2-container--material .select2-selection--single .select2-selection__arrow {
+                    height: 26px;
+                    margin: 0.6rem 0 0.4rem 0;
+                    position: absolute;
+                    top: 1px;
+                    right: 1px;
+                    width: 20px;
+                }
+
+                    .select2-container--material .select2-selection--single .select2-selection__arrow b {
+                        border-color: #888 transparent transparent transparent;
+                        border-style: solid;
+                        border-width: 5px 4px 0 4px;
+                        height: 0;
+                        left: 50%;
+                        margin-left: -4px;
+                        margin-top: -2px;
+                        position: absolute;
+                        top: 50%;
+                        width: 0;
+                    }
+
+            .select2-container--material[dir="rtl"] .select2-selection--single .select2-selection__clear {
+                float: left;
+            }
+
+            .select2-container--material[dir="rtl"] .select2-selection--single .select2-selection__arrow {
+                left: 1px;
+                right: auto;
+            }
+
+            .select2-container--material.select2-container--disabled .select2-selection--single {
+                background-color: #eee;
+                cursor: default;
+            }
+
+                .select2-container--material.select2-container--disabled .select2-selection--single .select2-selection__clear {
+                    display: none;
+                }
+
+            .select2-container--material.select2-container--open .select2-selection--single .select2-selection__arrow b {
+                border-color: transparent transparent #888 transparent;
+                border-width: 0 4px 5px 4px;
+            }
+
+            .select2-container--material .select2-selection--multiple {
+                background-color: transparent;
+                border: none;
+                border-bottom: 1px solid #ced4da;
+                border-radius: 0;
+                box-shadow: none;
+                box-sizing: content-box;
+                cursor: text;
+                height: auto;
+                margin: 0;
+                outline: none;
+                padding: 5px 0 0 0;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+
+                .select2-container--material .select2-selection--multiple .select2-selection__rendered {
+                    box-sizing: border-box;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0 5px;
+                    width: 100%;
+                }
+
+                    .select2-container--material .select2-selection--multiple .select2-selection__rendered li {
+                        list-style: none;
+                    }
+
+                .select2-container--material .select2-selection--multiple .select2-selection__placeholder {
+                    color: #999;
+                    margin-top: 5px;
+                    float: left;
+                }
+
+                .select2-container--material .select2-selection--multiple .select2-selection__clear {
+                    cursor: pointer;
+                    float: right;
+                    font-weight: bold;
+                    margin-top: 5px;
+                    margin-right: 10px;
+                }
+
+                .select2-container--material .select2-selection--multiple .select2-selection__choice {
+                    background-color: #ffca28;
+                    border-radius: 16px;
+                    color: rgba(0, 0, 0, 0.6);
+                    cursor: default;
+                    float: left;
+                    margin-right: 5px;
+                    margin-top: 6px;
+                    padding: 0 12px;
+                }
+
+                .select2-container--material .select2-selection--multiple .select2-selection__choice__remove {
+                    cursor: pointer;
+                    display: inline-block;
+                    font-weight: bold;
+                    float: right;
+                    margin-left: 5px;
+                }
+
+                    .select2-container--material .select2-selection--multiple .select2-selection__choice__remove:hover {
+                        color: #333;
+                    }
+
+            .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__choice, .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder, .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-search--inline {
+                float: right;
+            }
+
+            .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__choice {
+                margin-left: 5px;
+                margin-right: auto;
+            }
+
+            .select2-container--material[dir="rtl"] .select2-selection--multiple .select2-selection__choice__remove {
+                margin-left: 2px;
+                margin-right: auto;
+            }
+
+            .select2-container--material.select2-container--disabled .select2-selection--multiple {
+                background-color: #eee;
+                cursor: default;
+            }
+
+            .select2-container--material.select2-container--disabled .select2-selection__choice__remove {
+                display: none;
+            }
+
+            .select2-container--material.select2-container--open.select2-container--above .select2-selection--single, .select2-container--material.select2-container--open.select2-container--above .select2-selection--multiple {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+            .select2-container--material.select2-container--open.select2-container--below .select2-selection--single, .select2-container--material.select2-container--open.select2-container--below .select2-selection--multiple {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            .select2-container--material.select2-container--focus .select2-selection--single {
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                outline: 0;
+            }
+
+            .select2-container--material.select2-container--focus .select2-selection--multiple {
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                outline: 0;
+            }
+
+            .select2-container--material .select2-search--dropdown .select2-search__field {
+                border: none;
+                border-bottom: 1px solid #ced4da;
+                border-radius: 0;
+                outline: none;
+            }
+
+                .select2-container--material .select2-search--dropdown .select2-search__field:focus:not([readonly]) {
+                    box-shadow: 0 1px 0 0 #ced4da;
+                    border-bottom: 1px solid #ced4da;
+                }
+
+            .select2-container--material .select2-search--inline .select2-search__field {
+                background: transparent;
+                border: none !important;
+                outline: 0;
+                box-shadow: none !important;
+                -webkit-appearance: textfield;
+            }
+
+            .select2-container--material .select2-results > .select2-results__options {
+                max-height: 200px;
+                overflow-y: auto;
+            }
+
+            .select2-container--material .select2-results__option[role=group] {
+                padding: 0;
+            }
+
+            .select2-container--material .select2-results__option[aria-disabled=true] {
+                color: #999;
+            }
+
+            .select2-container--material .select2-results__option[aria-selected=true] {
+                background-color: #ddd;
+            }
+
+            .select2-container--material .select2-results__option .select2-results__option {
+                padding-left: 1em;
+            }
+
+                .select2-container--material .select2-results__option .select2-results__option .select2-results__group {
+                    padding-left: 0;
+                }
+
+                .select2-container--material .select2-results__option .select2-results__option .select2-results__option {
+                    margin-left: -1em;
+                    padding-left: 2em;
+                }
+
+                    .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+                        margin-left: -2em;
+                        padding-left: 3em;
+                    }
+
+                        .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+                            margin-left: -3em;
+                            padding-left: 4em;
+                        }
+
+                            .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+                                margin-left: -4em;
+                                padding-left: 5em;
+                            }
+
+                                .select2-container--material .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+                                    margin-left: -5em;
+                                    padding-left: 6em;
+                                }
+
+            .select2-container--material .select2-results__option--highlighted[aria-selected] {
+                background-color: #0A93AC;
+                color: white;
+            }
+
+            .select2-container--material .select2-results__group {
+                cursor: default;
+                display: block;
+                padding: 6px;
+            }
+
+        .select2-dropdown {
+            background-color: white;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+            display: block;
+            position: absolute;
+            left: -100000px;
+            width: 100%;
+            z-index: 1051;
+            -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .select2-results {
+            display: block;
+        }
+
+        .select2-results__options {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .select2-results__option {
+            padding: 6px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+            .select2-results__option[aria-selected] {
+                cursor: pointer;
+            }
+
+        .select2-container--open .select2-dropdown {
+            left: 0;
+        }
+
+        .select2-container--open .select2-dropdown--above {
+            border-bottom: none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .select2-container--open .select2-dropdown--below {
+            border-top: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .select2-search--dropdown {
+            display: block;
+            padding: 4px;
+        }
+
+            .select2-search--dropdown .select2-search__field {
+                padding: 4px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+                .select2-search--dropdown .select2-search__field::-webkit-search-cancel-button {
+                    -webkit-appearance: none;
+                }
+
+            .select2-search--dropdown.select2-search--hide {
+                display: none;
+            }
+
+    </style>
+</head>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+@using (Html.BeginForm("Create","Demande",FormMethod.Post)) {
+    
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+         <div id="loading-screen">
+             <div class="loading-spinner"></div>
+             <div class="loading-text">Loading...</div>
+        </div>
+        <div id="please-wait" style="display: none;">
+            <div class="modal"></div>
+            <div class="spinner">Loading...</div>
+        </div>
+
+        <h3>Créer une nouvelle demande : Mise en place projet ou intervention à l'initiative de SOFTWELL</h3>
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <div class="row">
+            <div class="col-sm-7 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Client")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.ClientCollection, (SelectList)ViewBag.ClientsList, "", new { @class="form-unique", @id="TypeP" , @onchange= "Natu()"})
+                    @Html.ValidationMessageFor(model => model.ClientCollection)
+                    @*@Html.DropDownListFor(model => model.ClientCollection, new SelectList(Model.ClientsList), "", new { @class = "form-unique", @id="TypeP", @onchange= "Natu()" })
+                    @Html.ValidationMessageFor(model => model.Comp_CompanyId)*@
+                </div>
+            </div>
+            <div class="col-sm-5 form-group">
+                <div>
+                    @Html.Label("", "Numéro de la demande")
+                </div>
+                <!--<div>
+                    @*@Html.TextBoxFor(model => model.NumeroDemande, new{ name="NumeroDemande", disabled = "disabled", @readonly = "readonly" ,@Value = @ViewData["NumTicket"], @class="form-unique"})
+                    @Html.ValidationMessageFor(model => model.NumeroDemande)*@
+                </div>-->
+                <div id ="divNat">
+                    <input type="text" name="NumeroDemande" id="optNat" class="form-unique" disabled onchange= "NatuZo()"/>
+                    @Html.ValidationMessageFor(model => model.NumeroDemande)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @*<div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Produit")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.ProduitsCollection, new SelectList(Model.ProduitsCollection),"", new { @class = "form-unique", @id="TypeP", @onchange= "NatuZ()" })
+                    @Html.ValidationMessageFor(model => model.ProduitDemande)
+                </div>
+            </div>*@
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Produit")
+                </div>
+                <div id ="divProd">
+                    <select name="ProduitDemande" class="form-unique", onchange= "NatuZ()">
+                        <option id="TypePro">
+
+                        </option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.ProduitDemande)
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Rubrique")
+                </div>
+                <div id ="divNato">
+                    <select name="Rubrique" class="form-unique">
+                        <option id="optNato">
+
+                        </option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Rubrique)
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Thème")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.ThemeCollection, new SelectList(Model.ThemeCollection), "", new { @class = "form-unique", @id="Theme" })
+                    @Html.ValidationMessageFor(model => model.Theme)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @*<div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Produit")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.ProduitsCollection, new SelectList(Model.ProduitsCollection),"", new { @class = "form-unique", @id="Produit"})
+                    @Html.ValidationMessageFor(model => model.ProduitDemande)
+                </div>
+            </div>*@
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Sujet")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.SujetDemande, new { @class = "form-unique", @id="Sijet"})
+                    @Html.ValidationMessageFor(model => model.SujetDemande)
+                </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Description")
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.DescriptionDemande, new { @class = "form-unique", @id="Description"})
+                    @Html.ValidationMessageFor(model => model.DescriptionDemande)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Priorité")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.PrioritesCollection, new SelectList(Model.PrioritesCollection), new { @class = "form-unique", @id="optionId" })
+                    @Html.ValidationMessageFor(model => model.PrioriteDemande)
+                </div>
+            </div>
+
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Niveau", new { @id="controlId1" })
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.NiveauCollection, new SelectList(Model.NiveauCollection), new { @class = "form-unique", @id="controlId2", @type = "hidden"})
+                    @Html.ValidationMessageFor(model => model.NiveauDemande)
+                </div>
+            </div>
+
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Commentaire sur la priorité", new { @id="controlId3" })
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.CommentaireNivDemande, new { @class = "form-unique", @id="controlId4", @type = "hidden" })
+                    @Html.ValidationMessageFor(model => model.CommentaireNivDemande)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Date/Heure proposée")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.DatePropose, new { type = "datetime-local", @class = "form-unique", @id="Date"})
+                    @Html.ValidationMessageFor(model => model.DatePropose)
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+        <div class="row">
+            <div class="col-sm-12 form-group">
+                <input type="button" name="ValidationDem" value="Enregistrer" class="form-unique" onclick="validationDem()"/>
+            </div>
+        </div>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script>
+        function showLoadingScreen() {
+            $('#loading-screen').show();
+        }
+
+        // Function to hide the loading screen
+        function hideLoadingScreen() {
+            $('#loading-screen').hide();
+        }
+        $(document).ready(function () {
+            $('#TypeP').select2({ theme: "material" });
+
+        });
+
+        function Natu() {
+            var cltName = $("#TypeP").val();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("NumdeT", "Demande")',
+                datatype: "json",
+                data: { cltName: cltName },
+                
+                success: function (result) {
+                    var a = JSON.parse(result);
+                    document.getElementById("optNat").value = a;
+                    NatuZo();
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+
+        function NatuZ() {
+            var prod = $("#TypePro").val();
+            var cltName = $("#TypeP").val();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetRub", "Demande")',
+                datatype: "json",
+                data: { prod: prod, cltName: cltName },
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    var txt = '<div><select name="Rubrique" class="form-unique">';
+                    var a = JSON.parse(result)
+
+                    $.each(a, function (k, v) {
+                        txt += '<option value="' + v.Value + '">' + v.Text + '</option>';
+                    })
+
+                    txt += '</select>'
+
+                    document.getElementById("divNato").innerHTML = txt;
+
+                    //console.log(a);
+                    //window.location.href = result;
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+
+        function NatuZo() {
+            var cltName = $("#TypeP").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetProd", "Demande")',
+                datatype: "json",
+                data: { cltName: cltName },
+
+                success: function (result) {
+                    var txt = '<div id ="divProd"><select name="ProduitDemande" id="TypePro" class="form-unique", onchange= "NatuZ()">';
+                    var a = JSON.parse(result)
+
+                    $.each(a, function (k, v) {
+                        txt += '<option value="' + v.Value + '">' + v.Text + '</option>';
+                    })
+
+                    txt += '</select>'
+
+                    document.getElementById("divProd").innerHTML = txt;
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+
+
+        function validationDem() {
+            var collection = $('form').serialize();
+            var typeprod = $('#TypePro').text();
+            showLoadingScreen();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CreateD", "Demande")',
+                datatype: "json",
+                data: collection,
+                //data: JSON.stringify({
+                //    collection: collection,
+                //    typeprod: typeprod
+                //}),
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                //contentType: null,
+
+                success: function (result) {
+                    hideLoadingScreen();
+                    alert(result);
+                    window.location.href = "@Url.Action("Index", "Demande")";
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+        
+        $("#optionId").on("change", function () {
+            if ($("#optionId option:selected").index() == 3) {
+                $("#controlId1").show();
+            } else {
+                $("#controlId1").hide();
+            }
+        });
+
+        $("#optionId").on("change", function () {
+            if ($("#optionId option:selected").index() == 3) {
+                $("#controlId2").show();
+            } else {
+                $("#controlId2").hide();
+            }
+        });
+
+        $("#optionId").on("change", function () {
+            if ($("#optionId option:selected").index() == 3) {
+                $("#controlId3").show();
+            } else {
+                $("#controlId3").hide();
+            }
+        });
+
+        $("#optionId").on("change", function () {
+            if ($("#optionId option:selected").index() == 3) {
+                $("#controlId4").show();
+            } else {
+                $("#controlId4").hide();
+            }
+        });
+
+    </script>
+}

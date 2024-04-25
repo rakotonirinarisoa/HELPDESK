@@ -1,0 +1,148 @@
+﻿@model Helpdesk.Models.HistoInterventions
+
+@{
+    ViewBag.Title = "ModifHeuR";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+
+        thead th {
+            font-size: 13px;
+            padding: 15px !important;
+            text-align: center;
+            background-color: #D14C4C;
+            color:white;
+        }
+
+        tr {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+
+        td {
+            font-size: 12px;
+            padding: 15px !important;
+            background-color: #242426;
+            color:white;
+        }
+    </style>
+</head>
+<header>
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+</header>
+
+@using (Html.BeginForm("ModifHeuR", "Demande", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    
+    <fieldset>
+        <div>
+            @Html.TextBoxFor(model => model.ID, new { @type = "hidden", @class = "form-unique", @Value = int.Parse(ViewBag.IDDemande.ToString()) })
+            @Html.ValidationMessageFor(model => model.ID)
+        </div>
+
+        <h3>Modification des heures</h3>
+
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                        @Html.Label("Hdeb", "Heure début")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Hdeb, new { @class = "form-unique", @Value = "00:00" })
+                    </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                        @Html.Label("Hfin", "Heure fin")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Hfin, new { @class = "form-unique", @Value = "00:00" })
+                    </div>
+            </div>
+
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                        @Html.Label("Hpd1", "Heure début pause 1")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Debut_Pause1, new { @class = "form-unique", @Value = "00:00" })
+                    </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                        @Html.Label("Hpf1", "Heure fin pause 1")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Fin_Pause1, new { @class = "form-unique", @Value = "00:00" })
+                    </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                        @Html.Label("Hpd2", "Heure début pause 2")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Debut_Pause2, new { @class = "form-unique", @Value = "00:00" })
+                    </div>
+            </div>
+            <div class="col-sm-3 form-group">
+                <div class="editor-label">
+                        @Html.Label("Hpf12", "Heure fin pause 2")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(model => model.Fin_Pause2, new { @class = "form-unique", @Value = "00:00" })
+                    </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+          
+        <div class="row">
+            <div class="col-sm-12 form-group">
+                <input type="button" name="valiDI" value="Confirmer la validation des heures" class="form-unique" onclick="valiDINT()"/>
+            </div>
+        </div>
+                          
+        <div class="col-lg-12">
+            &nbsp
+        </div>
+
+    </fieldset>
+}
+
+@section scripts
+{
+    <script>
+        function valiDINT() {
+            var collection = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ModifHeuR", "Demande")',
+                datatype: "json",
+                data: collection,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    alert(result);
+                    window.location.href = "@Url.Action("Details", "Demande", new { id = ViewBag.IDDemande })";
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+    </script>
+}

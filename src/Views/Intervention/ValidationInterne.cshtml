@@ -1,0 +1,92 @@
+@model Helpdesk.Mailing
+
+@{
+    ViewBag.Title = "ValidationInterneE";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+    </style>
+</head>
+<header>
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+</header>
+
+@using (Html.BeginForm("ValidationInterneE", "Intervention", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+        @if (ViewBag.ldv != null)
+	    {
+		    foreach (List<string> lst in ViewBag.ldv)
+		    {
+                <legend>Envoyer CR pour validation interne</legend>
+        
+            
+                <div class="row">
+                    <div class="col-sm-5 form-group">
+                        <div class="editor-label">
+                                @Html.Label("FROM","De : ")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.From, new { @class = "form-unique", @Value = @lst[0] })
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 form-group">
+                        <div class="editor-label">
+                                @Html.Label("TO","Destinataire(s) : ")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.To, new { @class = "form-unique", @Value = @lst[1] })
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 form-group">
+                        <div class="editor-label">
+                                @Html.Label("SUJET","Sujet : ")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Sujet, new { @class = "form-unique" })
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 form-group">
+                        <div class="editor-label">
+                                @Html.Label("BODY","Mail : ")
+                            </div>
+                            <div>
+                                @Html.TextAreaFor(model => model.Body, new { @class = "form-unique" })
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 form-group">
+                        <div class="editor-label">
+                                @Html.Label("ATTACH","Pi�ce(s) jointe(s) : ")
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(model => model.Attachement, new{ @Value = @lst[2], @class="form-unique"})
+                                @*@Html.TextBoxFor(model => model.Attachement, new { @class = "form-unique", @type="file", @name="attache", @multiple="multiple" })*@
+                                @*@Html.TextBoxFor(model => model.Attachement, new{ name="NumeroDemande", disabled = "disabled", @readonly = "readonly" , @Value = @lst[2], @class="form-unique"})*@
+                            </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <input type="submit" value="Envoyer" class="form-unique"/>
+                    </div>
+                </div>
+		    }
+	    }
+    </fieldset>
+}

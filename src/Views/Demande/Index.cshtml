@@ -1,0 +1,304 @@
+﻿@model Helpdesk.LuA
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+@section featured {
+   
+     <section>
+         <div>
+             <head>
+                 <style>
+                     .vertical-menu {
+                         width: 200px;
+                         font-size: 11px;
+                         cursor: pointer;
+                     }
+
+                         .vertical-menu a {
+                             background-color: #242426;
+                             color: white;
+                             display: block;
+                             padding: 31px;
+                             text-decoration: none;
+                         }
+
+                             .vertical-menu a:hover {
+                                 background-color: #D14C4C;
+                             }
+
+                             .vertical-menu a.active {
+                                 background-color: #D14C4C;
+                                 color: white;
+                             }
+
+                     thead th {
+                         font-size: 13px;
+                         padding: 15px !important;
+                         text-align: center;
+                         background-color: #D14C4C;
+                         color: white;
+                     }
+
+                     tr {
+                         font-size: 12px;
+                         padding: 15px !important;
+                         background-color: #242426;
+                         color: white;
+                     }
+
+                     td {
+                         font-size: 12px;
+                         padding: 15px !important;
+                         background-color: #242426;
+                         color: white;
+                     }
+
+                     .buttonDetails {
+                         background-color: #4CAF50;
+                         border: none;
+                         color: white;
+                         padding: 5px 15px;
+                         text-align: center;
+                         font-size: 12px;
+                         margin: 4px 2px;
+                         opacity: 0.8;
+                         transition: 0.3s;
+                         display: inline-block;
+                         text-decoration: none;
+                         cursor: pointer;
+                     }
+
+                         .buttonDetails:hover {
+                             opacity: 1
+                         }
+
+                     .buttonAnnuler {
+                         background-color: #0094ff;
+                         border: none;
+                         color: white;
+                         padding: 5px 15px;
+                         text-align: center;
+                         font-size: 12px;
+                         margin: 4px 2px;
+                         opacity: 0.8;
+                         transition: 0.3s;
+                         display: inline-block;
+                         text-decoration: none;
+                         cursor: pointer;
+                     }
+
+                         .buttonAnnuler:hover {
+                             opacity: 1
+                         }
+
+                     .buttonFi {
+                         background-color: #0094ff;
+                         border: none;
+                         color: white;
+                         padding: 5px 15px;
+                         text-align: center;
+                         font-size: 12px;
+                         margin: 4px 2px;
+                         opacity: 0.8;
+                         transition: 0.3s;
+                         display: inline-block;
+                         text-decoration: none;
+                         cursor: pointer;
+                     }
+
+                         .buttonFi:hover {
+                             opacity: 1
+                         }
+                 </style>
+             </head>
+             @using (Html.BeginForm("LuAcc", "Demande", FormMethod.Post))
+             {
+                 <div class="col-md-6">
+                     <label>Date Début:</label><input type="date" class="DateValidationIn" name="DateTimeIn" />
+                     <label>Date Fin:</label><input type="date" class="DateValidationOut" name="DateTimeOut" />
+                     <input type="button" class="btn btn-primary" onclick="validationDate()" value="Filtre" />
+                 </div>
+
+                 <h3>Mes demandes</h3>
+                 <div class="col-sm-12">
+                     <table id="clients" style="overflow:auto">
+                         <thead>
+                             <tr>
+                                 <th>Numéro</th>
+                                 <th>Client</th>
+                                 <th>Nom et prénom demandeur</th>
+                                 <th>Sujet</th>
+                                 <th>Description</th>
+
+                                 <th>Type demande</th>
+                                 <th>Produit</th>
+                                 <th>Prioritée</th>
+                                 <th>Niveau</th>
+
+                                 <th>Date demande</th>
+                                 <th>Date proposée</th>
+                                 <th>Date confirmée</th>
+                                 <th>Etat</th>
+
+                                 <th>Référence (Ticket en attache)</th>
+                                 <th>Thème</th>
+                                 <th>Rubrique</th>
+
+                                 <th>Action</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             @if (ViewBag.ldv != null)
+                             {
+                                 foreach (var lst in ViewBag.ldv)
+                                 {
+                                     <tr class="row100">
+                                         <td>@lst[0]</td>
+                                         <td>@lst[17]</td>
+                                         <td>@lst[12]</td>
+                                         <td>@lst[1]</td>
+                                         <td>@lst[2]</td>
+
+                                         <td>@lst[3]</td>
+                                         <td>@lst[4]</td>
+                                         <td>@lst[5]</td>
+                                         <td>@lst[18]</td>
+
+                                         <td>@lst[8]</td>
+                                         <td>@lst[9]</td>
+                                         <td>@lst[14]</td>
+                                         <td>@lst[6]</td>
+
+                                         <td>@lst[13]</td>
+
+                                         <td>@lst[19]</td>
+                                         <td>@lst[20]</td>
+
+                                         <td>
+                                             @Html.ActionLink("Détails", "Details", new { id = int.Parse(lst[7]) }, new { @class = "buttonDetails" }) <br />
+                                             @{
+                                                 int Et = int.Parse(lst[15]);
+                                                 if (Et == 4)
+                                                 {
+                                                     <p>
+                                                         @lst[11]
+                                                     </p>
+                                                 }
+                                             }
+
+                                             @Html.ActionLink("Intervention", "FicheNew", new { id = int.Parse(lst[7]) }, new { @class = "buttonFi" })<br />
+
+                                             @if (lst[16].ToString() == "0")
+                                             {
+                                                 <div>
+                                                     @Html.TextBoxFor(model => model.ID, new { @type = "hidden", @class = "form-unique", @Value = int.Parse(@lst[7]) })
+                                                 </div>
+
+                                                 <input type="button" name="lu" value="Lu" class="form-unique" onclick="LuAcc()" />
+                                             }
+
+                                             @if (Session["IsAdmin"] != null)
+                                             {
+                                                 var idI = int.Parse(lst[7]);
+
+                                                 <input type="button" name="Delete" value="Supprimer" class="buttonAnnuler" onclick="return confdel(@lst[7])" />
+                                             }
+                                             @*@if(lst[17] == "1")
+                                        {
+                                            @Html.ActionLink("Nouveau fiche", "FicheNew", new { id=int.Parse(lst[7]) }, new { @class ="buttonFi"})
+                                        }*@
+                                         </td>
+                                     </tr>
+                                 }
+                             }
+                         </tbody>
+                     </table>
+                 </div>
+             }
+         </div>
+    </section>
+    
+}
+
+<div class="col-lg-12">
+    &nbsp
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#clients").DataTable()
+            //redirect();
+        })
+          function redirect() {
+              var IDAGETNS = $("#IDAGETNS").val();
+              var link = '@Url.Action("Index", "Demande", new { id = "-1"})';
+              link = link.replace("-1", IDAGETNS);
+              window.location.href = link;
+          }
+         function validationDate() {
+             var dateDeb = $(".DateValidationIn").val();
+             var dateFin = $(".DateValidationOut").val();
+
+             if (dateDeb == undefined || dateFin == undefined) {
+                 link = '@Url.Action("Index", "Demande")' + '?dateDeb=' + null + '&dateFin=' + null;
+             } else {
+                  var IDAGETNS = $("#IDAGETNS").val();
+                     link = '@Url.Action("Index", "Demande")'+ '?dateDeb=' + dateDeb + '&dateFin=' + dateFin;
+                     //alert(link);
+                     window.location.href = link;
+             }
+
+         };
+        function LuAcc() {
+            var collection = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("LuAcc", "Demande")',
+                datatype: "json",
+                data: collection,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    alert(result);
+                    link = '@Url.Action("Index", "Demande")'+ '?dateDeb=' + dateDeb + '&dateFin=' + dateFin;
+                    window.location.href = link;
+                },
+
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+
+        function confdel(idT) {
+            var res = confirm("Êtes-vous sûr de vouloir supprimer cette demande?");
+            if (res) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Delete", "Demande")',
+                        dataType: "json",
+                        data: JSON.stringify({ id: idT }),
+
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (result) {
+                            alert(result);
+                             link = '@Url.Action("Index", "Demande")'+ '?dateDeb=' + dateDeb + '&dateFin=' + dateFin;
+                             window.location.href = link;
+                        },
+                        error: function (args) {
+                            alert(args.responseText);
+                        }
+                    });
+                }
+                else {
+                    return false;
+                }
+            }
+    </script>
+}

@@ -1,0 +1,105 @@
+﻿@model Helpdesk.Models.ModRech
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+@section featured {
+    
+    <section>
+        <div>
+            <head>
+                <style>
+                    .vertical-menu {
+                      width: 200px;
+                      font-size: 11px;
+                      cursor: pointer;
+                    }
+
+                    .vertical-menu a {
+                      background-color: #242426;
+                      color: white;
+                      display: block;
+                      padding:31px;
+                      text-decoration: none;
+                    }
+
+                    .vertical-menu a:hover {
+                      background-color: #D14C4C;
+                    }
+
+                    .vertical-menu a.active {
+                      background-color: #D14C4C;
+                      color: white;
+                    }
+
+                    thead th {
+                      font-size: 13px;
+                      padding: 15px !important;
+                      text-align: center;
+                      background-color: #D14C4C;
+                      color:white;
+                    }
+
+                    tr {
+                      font-size: 12px;
+                      padding: 15px !important;
+                      background-color: #242426;
+                      color:white;
+                    }
+
+                    td {
+                      font-size: 12px;
+                      padding: 15px !important;
+                      background-color: #242426;
+                      color:white;
+                    }
+                </style>
+            </head>
+            <legend>SOFTWELL</legend>
+
+            <div class="col-sm-12">
+		        <table id="clients">
+				    <thead>
+					    <tr>
+						    <th width=8%>Nom</th>
+						    <th width=8%>Prénom</th>
+						    <th width=15%>Département</th>
+						    <th width=20%>Adresse E-mail</th>
+					    </tr>
+				    </thead>
+				    <tbody>
+		                @if (ViewBag.ldv != null)
+		                {
+		                    foreach (var lst in ViewBag.ldv)
+		                    {
+		                        <tr>
+                                    <td>@lst[0]</td>
+						            <td>@lst[1]</td>
+						            <td>@lst[2]</td>
+						            <td>@lst[3]</td>
+		                        </tr>
+		                    }
+		                }
+				    </tbody>
+			    </table>
+        	</div>     
+        </div>
+    </section>
+}
+
+<div class="col-lg-12">
+    &nbsp
+</div>
+
+@*@Html.ActionLink("Exporter", "Export", "Agent")*@
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#clients").DataTable()
+        })
+    </script>
+}

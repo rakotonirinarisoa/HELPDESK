@@ -1,0 +1,217 @@
+﻿@model Helpdesk.Crmcli_HistoIntervs
+
+@{
+    ViewBag.Title = "FicheNew";
+    Layout = "~/Views/Shared/_LayoutPageMaster.cshtml";
+}
+
+<header>
+    <link href="~/Design/css/Style.css" rel="stylesheet" />
+</header>
+<head>
+    <style>
+        .form-unique {
+            width: 100%;
+        }
+    </style>
+</head>
+
+@using (Html.BeginForm("FicheNewD" , "Demande", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        @*@Html.HiddenFor(model => model.ID_Demandes)*@
+        <legend>Détails de l'intervention</legend>
+
+        <div>
+            @Html.TextBoxFor(model => model.ID_Demandes, new { @type = "hidden", @class = "form-unique", @Value = int.Parse(ViewBag.IDDemande.ToString()) })
+            @Html.ValidationMessageFor(model => model.ID_Demandes)
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Date de l'intervention")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Date_Comm, new { type = "date", @class = "form-unique"})
+                    @Html.ValidationMessageFor(model => model.Date_Comm)
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Etat de l'intervention")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.EtatsCollection, new SelectList(Model.EtatsCollection),"", new { @class = "form-unique" })
+                    @Html.ValidationMessageFor(model => model.EtatH)
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Le(s) intervenant(e)(s)")
+                </div>
+                <div>
+                    @Html.ListBoxFor(m => m.AgIds, Model.Ag, new { @class = "listbox" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Sujets, "Sujet")
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Sujets, new { @class="form-unique" })
+                    @Html.ValidationMessageFor(model => model.Sujets)
+                </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Descriptions, "Description")
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.Descriptions, new { @class = "form-unique" })
+                    @Html.ValidationMessageFor(model => model.Descriptions)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Activité")
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.TypePrestaCollection, new SelectList(Model.TypePrestaCollection),"", new { @class = "form-unique", @id="TypeP", @onchange= "Natu()" })
+                    @Html.ValidationMessageFor(model => model.Activite)
+                </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Nature de l'intervention")
+                </div>
+                <div id ="divNat">
+                    <select name="Nature" class="form-unique">
+                        <option id="optNat">
+
+                        </option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Nature)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Séance", new { @id="controlId1", @style = "display:none" })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Seance, new { @class="form-unique", @id="controlId2", @style = "display:none"  })
+                    @Html.ValidationMessageFor(model => model.Seance)
+                </div>
+            </div>
+            <div class="col-sm-6 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Personnes présentes", new { @id="controlId3", @style = "display:none" })
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.PERSP, new { @class="form-unique", @id="controlId4", @style = "display:none"  })
+                    @Html.ValidationMessageFor(model => model.PERSP)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 form-group">
+                <input type="button" name="valiDA" value="Enregistrer" class="form-unique" onclick="valiDDemande()"/>
+            </div>
+        </div>
+    </fieldset>
+    
+    <hr size=20 width=100% align=center >
+    
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function Natu() {
+            var typeprest = $("#TypeP").val();
+            if (typeprest == 'Formation clients') {
+                $("#controlId1").show();
+                $("#controlId2").show();
+                $("#controlId3").show();
+                $("#controlId4").show();
+            } else {
+                $("#controlId1").hide();
+                $("#controlId2").hide();
+                $("#controlId3").show();
+                $("#controlId4").show();
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Nat", "Demande")',
+                datatype: "json",
+                data: { typepresta: typeprest},
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    var txt = '<div><select name="Nature" class="form-unique">';
+                    var a = JSON.parse(result)
+
+                    $.each(a, function (k, v) {
+                        txt += '<option value="' + v.Value + '">' + v.Text + '</option>';
+                    })
+
+                    txt += '</select>'
+
+                    document.getElementById("divNat").innerHTML = txt;
+
+                    //console.log(a);
+                    //window.location.href = result;
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+
+        function valiDDemande() {
+            var collection = $('form').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("FicheNewD", "Demande")',
+                datatype: "json",
+                data: collection,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                success: function (result) {
+                    alert(result);
+                    //window.location.href = result;
+                },
+                error: function (args) {
+                    alert(args.responseText);
+                }
+            });
+        }
+
+        $(function () {
+            $('.listbox').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+
+        //$("#TypeP").on("change", function () {
+        //    if ($("#TypeP option:selected").text() == 'Formation clients') {
+        //        $("#controlId1").show();
+        //        $("#controlId2").show();
+        //    } else {
+        //        $("#controlId1").hide();
+        //        $("#controlId2").hide();
+        //    }
+        //});
+    </script>
+}
