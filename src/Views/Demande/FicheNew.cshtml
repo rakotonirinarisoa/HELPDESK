@@ -35,7 +35,7 @@
                     @Html.Label("", "Date de l'intervention")
                 </div>
                 <div>
-                    @Html.TextBoxFor(model => model.Date_Comm, new { type = "date", @class = "form-unique"})
+                    @Html.TextBoxFor(model => model.Date_Comm, new { type = "date", @class = "form-unique" })
                     @Html.ValidationMessageFor(model => model.Date_Comm)
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     @Html.Label("", "Etat de l'intervention")
                 </div>
                 <div>
-                    @Html.DropDownListFor(model => model.EtatsCollection, new SelectList(Model.EtatsCollection),"", new { @class = "form-unique" })
+                    @Html.DropDownListFor(model => model.EtatsCollection, new SelectList(Model.EtatsCollection), "", new { @class = "form-unique" })
                     @Html.ValidationMessageFor(model => model.EtatH)
                 </div>
             </div>
@@ -54,6 +54,16 @@
                 </div>
                 <div>
                     @Html.ListBoxFor(m => m.AgIds, Model.Ag, new { @class = "listbox" })
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="editor-label">
+                    @Html.Label("", "Numéro Historique *")
+                </div>
+                <div>
+                    @*<input type="text" name="NumeroHisto" id="IDhistorique" class="form-unique" disabled />*@
+                    @Html.TextBoxFor(model => model.NumeroHisto, new { @class = "form-unique",@id = "IDhistorique" })
+                    @Html.ValidationMessageFor(model => model.NumeroHisto)
                 </div>
             </div>
         </div>
@@ -135,7 +145,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
+<script>
         function Natu() {
             var typeprest = $("#TypeP").val();
             if (typeprest == 'Formation clients') {
@@ -178,15 +188,40 @@
             });
         }
 
+        function GetHistoNum() {
+            var cltName = $("#TypeP").val();
+            var currentUrl = window.location.href;
+            var IDemande = currentUrl.split("/").pop();
+
+            //alert(cltName);
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetNumHisto", "Demande")',
+                    datatype: "json",
+                    data: { IDemande: IDemande },
+
+                    success: function (result) {
+                        var a = JSON.parse(result)
+
+                        $('#IDhistorique').val(a);
+                        //document.getElementById("divProd").innerHTML = txt;
+                    },
+                    error: function (args) {
+                        alert(args.responseText);
+                    }
+                });
+        }
+
         function valiDDemande() {
             var collection = $('form').serialize();
+            //var idhisto = $('#IDhistorique').val();
 
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("FicheNewD", "Demande")',
                 datatype: "json",
                 data: collection,
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 
                 success: function (result) {
                     alert(result);
@@ -212,6 +247,9 @@
         //        $("#controlId1").hide();
         //        $("#controlId2").hide();
         //    }
-        //});
-    </script>
+    //});
+    $(document).ready(function () {
+        GetHistoNum();
+    });
+</script>
 }

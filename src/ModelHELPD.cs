@@ -1,6 +1,7 @@
-namespace Helpdesk
+﻿namespace Helpdesk
 {
     using System.Data.Entity;
+    using Helpdesk.Models;
 
     public partial class ModelHELPD : DbContext
     {
@@ -25,9 +26,7 @@ namespace Helpdesk
         public virtual DbSet<users> users { get; set; }
         public virtual DbSet<vPerson> vPerson { get; set; }
         public virtual DbSet<Crmcli_TickDem> Crmcli_TickDem { get; set; }
-
         public virtual DbSet<Crmcli_HistoIntervs> Crmcli_HistoIntervs { get; set; }
-
         public virtual DbSet<Crmcli_NumFiche> Crmcli_NumFiche { get; set; }
         public virtual DbSet<Crmcli_UsersSession> Crmcli_UsersSession { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using Helpdesk.Models;
+﻿using DevExpress.UnitConversion;
+using Helpdesk.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text.RegularExpressions;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace Helpdesk.Controllers {
@@ -898,7 +900,17 @@ namespace Helpdesk.Controllers {
                     }
                     else
                         listH.Add(PersP);
-
+                    //22
+                    var numhistro = "";
+                    if (x.NumeroHisto != null)
+                    {
+                        numhistro = x.NumeroHisto.ToString();
+                        listH.Add(numhistro);
+                    }
+                    else
+                    {
+                        listH.Add(numhistro);
+                    }
                     listHistoInt.Add(listH);
                 }
             }
@@ -1010,7 +1022,7 @@ namespace Helpdesk.Controllers {
         }
 
         [HttpPost]
-        public ActionResult FicheNewD(Crmcli_HistoIntervs collection) {
+        public ActionResult FicheNewD(Crmcli_HistoIntervs collection ) {
             try {
                 var IdDemandeur = 0;
                 if (db.Crmcli_Demandes.Where(a => a.ID == collection.ID_Demandes).Count() != 0) {
@@ -1134,6 +1146,7 @@ namespace Helpdesk.Controllers {
                             collection.ID_Agent = idAgent;
 
                             var addr = new List<string>();
+
 
                             //Mail demandeur//
                             var demT = db.Crmcli_Demandes.Where(a => a.ID == collection.ID_Demandes).FirstOrDefault();
@@ -1658,6 +1671,91 @@ namespace Helpdesk.Controllers {
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetNumHisto(int IDemande)
+        {
+            string idPerm = "1";
+            string numTicket = "";
+            int IDD = 0;
+            string idDemandeS = IDemande.ToString() + "/";
+            ModelHELPD db = new ModelHELPD();
+            var Compteurtemp = db.Crmcli_HistoIntervs.Where( a => a.ID_Demandes == IDemande && a.NumeroHisto != null).ToList().OrderBy(a => a.NumeroHisto);
+            var Compteur = "";
+
+            foreach (var item in Compteurtemp)
+            {
+                Compteur = item.NumeroHisto.ToString();
+            }
+            
+            int numOk = int.Parse(idPerm);
+            if (Compteur != null)
+            {
+                var zzz = Compteur.Split('/');
+                var item = "";
+                if (zzz.Length > 0)
+                {
+                    item = zzz[zzz.Length - 1];
+                }
+
+                numOk = int.Parse(item);
+                numOk = numOk + 1;
+                if (numOk <= 99999)
+                {
+                    if (numOk.ToString().Length == 1)
+                    {
+                        numTicket = string.Format("{0}0000{1}", idDemandeS, numOk);
+                    }
+                    else if (numOk.ToString().Length == 2)
+                    {
+                        numTicket = string.Format("{0}000{1}", idDemandeS, numOk);
+                    }
+                    else if (numOk.ToString().Length == 3)
+                    {
+                        numTicket = string.Format("{0}00{1}", idDemandeS, numOk);
+                    }
+                    else if (numOk.ToString().Length == 4)
+                    {
+                        numTicket = string.Format("{0}0{1}", idDemandeS, numOk);
+                    }
+                    else if (numOk.ToString().Length == 5)
+                    {
+                        numTicket = idDemandeS + numOk;
+                    }
+                }
+                string idHistorique = numTicket;
+                var json = JsonConvert.SerializeObject(idHistorique);
+                return Json(json, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                
+                if (numOk <= 99999)
+                {
+                    if (numOk.ToString().Length == 1)
+                    {
+                        numTicket = string.Format("{0}0000{1}", idDemandeS, numOk);
+                    }
+                    else if (numOk.ToString().Length == 2)
+                    {
+                        numTicket = string.Format("{0}000{1}", idDemandeS, numOk);
+                    }
+                    else if (numOk.ToString().Length == 3)
+                    {
+                        numTicket = string.Format("{0}00{1}", idDemandeS, numOk);
+                    }
+                    else if (numOk.ToString().Length == 4)
+                    {
+                        numTicket = string.Format("{0}0{1}", idDemandeS, numOk);
+                    }
+                    else if (numOk.ToString().Length == 5)
+                    {
+                        numTicket = idDemandeS + numOk;
+                    }
+                }
+                string idHistorique = numTicket;
+                var json = JsonConvert.SerializeObject(idHistorique);
+                return Json(json, JsonRequestBehavior.AllowGet);
+            }
+        }
         public JsonResult GetProd(string cltName) {
             var produits = new List<SelectListItem>();
 

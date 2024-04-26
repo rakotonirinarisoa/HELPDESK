@@ -1,9 +1,10 @@
-namespace Helpdesk
+﻿namespace Helpdesk
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
     using System.Web.Mvc;
 
     public partial class Crmcli_HistoIntervs
@@ -38,19 +39,7 @@ namespace Helpdesk
         [StringLength(20)]
         public string EtatH { get; set; }
 
-        [StringLength(20)]
-        public string Activite { get; set; }
-
-        [StringLength(20)]
-        public string Nature { get; set; }
-
         public string CommentairesH { get; set; }
-
-        [NotMapped]
-        public List<String> TypePrestaCollection { get; set; }
-
-        [NotMapped]
-        public List<String> EtatsCollection { get; set; }
 
         public TimeSpan? Debut_Pause1 { get; set; }
 
@@ -60,20 +49,32 @@ namespace Helpdesk
 
         public TimeSpan? Fin_Pause2 { get; set; }
 
-        [NotMapped]
-        public List<SelectListItem> Ag { get; set; }
-
-        [NotMapped]
-        public int[] AgIds { get; set; }
-
         public string Lien_Validation { get; set; }
 
         public int? SenderAgent { get; set; }
+
+        [StringLength(20)]
+        public string Activite { get; set; }
+
+        [StringLength(20)]
+        public string Nature { get; set; }
 
         public DateTime? DateSaisieHisto { get; set; }
 
         public string Seance { get; set; }
 
         public string PERSP { get; set; }
+
+        [StringLength(50)]
+        public string NumeroHisto { get; set; }
+
+        [NotMapped]
+        public List<string> EtatsCollection { get; set; }
+        [NotMapped]
+        public List<string> TypePrestaCollection { get; set; }
+        [NotMapped]
+        public List<SelectListItem> Ag { get; set; }
+        [NotMapped]
+        public int[] AgIds { get; set; }
     }
 }
