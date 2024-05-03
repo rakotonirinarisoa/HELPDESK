@@ -1687,7 +1687,7 @@ namespace Helpdesk.Controllers {
             }
             
             int numOk = int.Parse(idPerm);
-            if (Compteur != null)
+            if (Compteur != "")
             {
                 var zzz = Compteur.Split('/');
                 var item = "";
